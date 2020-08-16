@@ -58,6 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookReaderDbContext.cs" />
+    <Compile Include="BookReaderInitializer.cs" />
+    <Compile Include="BookRepository.cs" />
+    <Compile Include="Interfaces\IBookRepository.cs" />
     <Compile Include="Migrations\202008151821414_Add_Entities_Author_Book_Genre_WishList.cs" />
     <Compile Include="Migrations\202008151821414_Add_Entities_Author_Book_Genre_WishList.designer.cs">
       <DependentUpon>202008151821414_Add_Entities_Author_Book_Genre_WishList.cs</DependentUpon>
@@ -86,9 +89,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202008142042498_Initial_Create.resx">
       <DependentUpon>202008142042498_Initial_Create.cs</DependentUpon>
