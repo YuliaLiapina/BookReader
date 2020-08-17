@@ -11,6 +11,11 @@ namespace BookReader.Data.Models
 {
     public class ApplicationUser: IdentityUser
     {
+        public ApplicationUser()
+        {
+            WishLists = new List<WishList>();
+            Books = new List<Book>();
+        }
         public int Age { get; set; }
 
         public ICollection<WishList> WishLists { get; set; }

@@ -1,7 +1,9 @@
 using BookReader.Autofac;
+using BookReader.Data;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -14,12 +16,13 @@ namespace BookReader
     {
         protected void Application_Start()
         {
+            Database.SetInitializer<BookReaderDbContext>(new BookReaderInitializer());
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AutofacConfig.ConfigureContainer();
-
         }
     }
 }

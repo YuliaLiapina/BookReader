@@ -7,6 +7,11 @@ namespace BookReader.Models
 {
     public class ApplicationUserViewModel
     {
+        public ApplicationUserViewModel()
+        {
+            WishLists = new List<WishListViewModel>();
+            Books = new List<BookViewModel>();
+        }
         public string Id { get; set; }
         public int Age { get; set; }
         public string Email { get; set; }

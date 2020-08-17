@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace BookReaderManager.Business.Models
 {
     public class WishListModel
     {
-        public int Id { get; set; }
+        public WishListModel()
+        {
+            Books = new List<BookModel>();
+        }
+        public int? Id { get; set; }
         public string Name { get; set; }
 
         public string UserId { get; set; }

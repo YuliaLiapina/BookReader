@@ -189,6 +189,7 @@
     <Compile Include="Autofac\AutofacConfig.cs" />
     <Compile Include="Autofac\MapperAutofacModul.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -199,12 +200,47 @@
     <Compile Include="Models\AuthorViewModel.cs" />
     <Compile Include="Models\BookViewModel.cs" />
     <Compile Include="Models\GenreViewModel.cs" />
+    <Compile Include="Models\GetBooksViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\WishListViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Books\AtlasShrugged\AtlasShrugged.txt" />
+    <Content Include="Content\Books\AtlasShrugged\AtlasShruggedCover.jpg" />
+    <Content Include="Content\Books\Aviator\Aviator.txt" />
+    <Content Include="Content\Books\Aviator\AviatorCover.jpg" />
+    <Content Include="Content\Books\BraveNewWorld\BraveNewWorld.txt" />
+    <Content Include="Content\Books\BraveNewWorld\WorldCover.jpg" />
+    <Content Include="Content\Books\DandelionWine\DandelionWine.txt" />
+    <Content Include="Content\Books\DandelionWine\WineCover.jpg" />
+    <Content Include="Content\Books\EmpireOfAngels\EmpireOfAngels.txt" />
+    <Content Include="Content\Books\EmpireOfAngels\EmpireOfAngelsCover.jpg" />
+    <Content Include="Content\Books\FlowersForElgernon\FlowersCover.jpg" />
+    <Content Include="Content\Books\FlowersForElgernon\FlowersForElgernon.txt" />
+    <Content Include="Content\Books\ForrestGump\ForrestGump.txt" />
+    <Content Include="Content\Books\ForrestGump\ForrestGumpCover.jpg" />
+    <Content Include="Content\Books\Galaxy\GalaxyCover.jpg" />
+    <Content Include="Content\Books\GreenMile\GreenMile.txt" />
+    <Content Include="Content\Books\GreenMile\GreenMileCover.jpg" />
+    <Content Include="Content\Books\GulliverJourney\GulliverJourney.txt" />
+    <Content Include="Content\Books\GulliverJourney\GulliverCover.jpg" />
+    <Content Include="Content\Books\Hobbit\Hobbit.txt" />
+    <Content Include="Content\Books\Hobbit\HobbitCover.jpg" />
+    <Content Include="Content\Books\KratchayshayaIstoriyaVremeni\KratchayshayaIstoriyaVremeniCover.jpg" />
+    <Content Include="Content\Books\LittlePrince\LittlePrince.txt" />
+    <Content Include="Content\Books\LittlePrince\PrinceCover.jpg" />
+    <Content Include="Content\Books\MasterAndMargarita\MasterAndMargatrita.txt" />
+    <Content Include="Content\Books\MasterAndMargarita\MasterCover.jpg" />
+    <Content Include="Content\Books\Paddington\Paddington.txt" />
+    <Content Include="Content\Books\Paddington\PaddingtonCover.jpg" />
+    <Content Include="Content\Books\KratchayshayaIstoriyaVremeni\KratchayshayaIstoriyaVremeni.txt" />
+    <Content Include="Content\Books\Galaxy\TheHitchhikersGuideToTheGalaxy.txt" />
+    <Content Include="Content\Books\TheShawshankRedemption\ShoushenkCover.jpg" />
+    <Content Include="Content\Books\TheShawshankRedemption\TheShawshankRedemption.txt" />
+    <Content Include="Content\Books\WinnieThePooh\WinnieThePooh.txt" />
+    <Content Include="Content\Books\WinnieThePooh\WinnieCover.jpg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -260,6 +296,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Book\Books.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

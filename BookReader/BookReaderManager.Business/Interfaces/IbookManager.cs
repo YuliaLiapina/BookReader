@@ -11,8 +11,8 @@ namespace BookReaderManager.Business.Interfaces
     {
         IList<BookModel> GetAllBooks();
         void AddBook(BookModel book);
-        void DeleteBook(int id);
-        BookModel GetBookById(int id);
+        void DeleteBook(int? id);
+        BookModel GetBookById(int? id);
         void UpdateBook(BookModel book);
     }
 }

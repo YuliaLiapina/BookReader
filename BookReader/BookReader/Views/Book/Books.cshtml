@@ -1,0 +1,20 @@
+﻿@model BookReader.Models.GetBooksViewModel
+
+@{
+    ViewBag.Title = "Books";
+}
+
+@foreach(var book in Model.Books)
+{
+    <img src="@book.Cover">
+    <p>@book.Name</p>
+    <p>
+        @foreach (var author in @book.Authors)
+        {
+    <p>@author.FirstName</p> 
+    <p>@author.LastName</p>
+        }
+    </p>
+    <p>@book.Annotation</p>
+}
+

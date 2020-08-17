@@ -1,14 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace BookReaderManager.Business.Models
 {
-   public class BookModel
+    public class BookModel
     {
-        public int Id { get; set; }
+        public BookModel()
+        {
+            Users = new List<ApplicationUserModel>();
+            Authors = new List<AuthorModel>();
+            Genres = new List<GenreModel>();
+            WishLists = new List<WishListModel>();
+        }
+        public int? Id { get; set; }
         public string Name { get; set; }
         public int Pages { get; set; }
         public string Annotation { get; set; }

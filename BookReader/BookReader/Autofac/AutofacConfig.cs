@@ -7,6 +7,8 @@ using Autofac;
 using Autofac.Integration.Mvc;
 using BookReader.Data;
 using BookReader.Data.Interfaces;
+using BookReaderManager.Business;
+using BookReaderManager.Business.Interfaces;
 
 namespace BookReader.Autofac
 {
@@ -19,6 +21,7 @@ namespace BookReader.Autofac
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
             builder.RegisterType<BookRepository>().As<IBookRepository>();
+            builder.RegisterType<BookManager>().As<IbookManager>();
             builder.RegisterModule<MapperAutofacModul>();
 
             var container = builder.Build();

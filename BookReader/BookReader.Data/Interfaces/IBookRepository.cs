@@ -11,8 +11,8 @@ namespace BookReader.Data.Interfaces
     {
         IList<Book> GetAllBooks();
         void AddBook(Book book);
-        void DeleteBook(int id);
-        Book GetBookById(int id);
+        void DeleteBook(int? id);
+        Book GetBookById(int? id);
         void UpdateBook(Book book);
     }
 }

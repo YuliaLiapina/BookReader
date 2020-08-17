@@ -18,7 +18,7 @@ namespace BookReader.Data
             }
         }
 
-        public void DeleteBook(int id)
+        public void DeleteBook(int? id)
         {
             using(var context = new BookReaderDbContext())
             {
@@ -37,7 +37,7 @@ namespace BookReader.Data
             }
         }
 
-        public Book GetBookById(int id)
+        public Book GetBookById(int? id)
         {
             using (var context = new BookReaderDbContext())
             {

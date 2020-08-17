@@ -24,7 +24,7 @@ namespace BookReaderManager.Business
             _bookRepository.AddBook(mappedBook);
         }
 
-        public void DeleteBook(int id)
+        public void DeleteBook(int? id)
         {
             _bookRepository.DeleteBook(id);
         }
@@ -37,7 +37,7 @@ namespace BookReaderManager.Business
             return result;
         }
 
-        public BookModel GetBookById(int id)
+        public BookModel GetBookById(int? id)
         {
             var book = _bookRepository.GetBookById(id);
             var bookModel = _mapper.Map<BookModel>(book);

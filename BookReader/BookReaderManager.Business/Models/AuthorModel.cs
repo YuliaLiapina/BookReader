@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace BookReaderManager.Business.Models
 {
     public class AuthorModel
     {
-        public int Id { get; set; }
+        public AuthorModel()
+        {
+            Books = new List<BookModel>();
+        }
+        public int? Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
