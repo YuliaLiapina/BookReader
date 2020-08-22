@@ -1,20 +1,62 @@
 ﻿@model BookReader.Models.GetBooksViewModel
-
 @{
-    ViewBag.Title = "Books";
+    ViewBag.Title = "AdminPanel";
 }
 
-@foreach(var book in Model.Books)
-{
-    <img src="@book.Cover">
-    <p>@book.Name</p>
-    <p>
-        @foreach (var author in @book.Authors)
+<h2>AdminPanel</h2>
+<h3>Панель книг</h3>
+
+@Html.ActionLink("Add new book", "Create")
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Writers
+            </th>
+            <th>
+                Categories
+            </th>
+            <th>
+                Remove
+            </th>
+            <th>
+                Edit
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model.Books)
         {
-    <p>@author.FirstName</p> 
-    <p>@author.LastName</p>
+
+            <tr>
+                <td>
+                    <img src="@book.Cover" width="100" height="100" /> @Html.ActionLink($"{book.Name}", "Details", new { id = book.Id })
+                </td>
+                <td>
+                    @foreach (var writer in book.Authors)
+                    {
+                        <p> @writer.FirstName &nbsp @writer.LastName</p>
+                    }
+                </td>
+                <td>
+                    @foreach (var genre in book.Genres)
+                    {
+                        <p>@genre.Name</p>
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { id = book.Id })
+                </td>
+                <td>
+                    <a href="/Book/Edit/@book.Id">Edit book</a>
+                </td>
+            </tr>
         }
-    </p>
-    <p>@book.Annotation</p>
+    </tbody>
+</table>
 }
 

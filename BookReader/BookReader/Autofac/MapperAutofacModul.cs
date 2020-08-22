@@ -37,6 +37,12 @@ namespace BookReader.Autofac
                 cfg.CreateMap<ApplicationUserModel, ApplicationUserViewModel>();
                 cfg.CreateMap<ApplicationUserViewModel, ApplicationUserModel>();
 
+                cfg.CreateMap<ApplicationUserModel, EditUserPostModel>();
+                cfg.CreateMap<EditUserPostModel, ApplicationUserModel>();
+
+                cfg.CreateMap<BookModel, CreateBookPostModel>();
+                cfg.CreateMap<CreateBookPostModel, BookModel>();
+
             })).AsSelf().SingleInstance();
 
             builder.Register(c =>

@@ -1,0 +1,42 @@
+﻿@model BookReader.Models.GetUsersViewModel
+
+@{
+    ViewBag.Title = "UsersInfo";
+}
+
+<h2>UsersInfo</h2>
+
+@foreach (var user in Model.Users)
+{
+    <ol>
+        <li>
+            <p>Login: &nbsp @user.UserName</p>
+            <p>Age: &nbsp @user.Age</p>
+            <p>Email: &nbsp @user.Email</p>
+            <p>Phone number: &nbsp @user.PhoneNumber</p>
+            @foreach (var wishList in user.WishLists)
+            {
+                <p>
+                    WishLists:
+                    <ol>
+                        <li>
+                            wishList
+                        </li>
+                    </ol>
+                </p>
+
+            }
+            @foreach (var book in user.Books)
+            {
+                <p>
+                    Books:
+                    <ol>
+                        <li>
+                            book
+                        </li>
+                    </ol>
+                </p>
+            }
+        </li>
+    </ol>
+ }

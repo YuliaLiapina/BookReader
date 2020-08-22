@@ -1,36 +1,48 @@
 ﻿using AutoMapper;
 using BookReader.Models;
 using BookReaderManager.Business.Interfaces;
+using BookReaderManager.Business.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace BookReader.Controllers
 {
     public class BookController : Controller
     {
-        private readonly IbookManager _bookManager;
+        private readonly IBookService _bookService;
+        private readonly IGenreService _genreService;
         private readonly IMapper _mapper;
 
-        public BookController(IbookManager bookManager, IMapper mapper)
+        public BookController(IBookService bookManager, IMapper mapper, IGenreService genreService)
         {
-            _bookManager = bookManager;
+            _bookService = bookManager;
+            _genreService = genreService;
             _mapper = mapper;
         }
         // GET: Book
         public ActionResult Books()
         {
-            var booksModel = _bookManager.GetAllBooks();
-            var booksViewModel = _mapper.Map<IList<BookViewModel>>(booksModel);
-            var books = new GetBooksViewModel();
-            books.Books = booksViewModel;
+            var booksModel = _bookService.GetAllBooks();
+            var books = _mapper.Map<IList<BookViewModel>>(booksModel);
 
-            return View("Books",books);
+            var booksSorted = books.OrderBy(b => b.Name).ToList();
+
+            var getBooks = new GetBooksViewModel();
+            getBooks.Books = booksSorted;
+
+            return View(getBooks);
         }
 
         // GET: Book/Details/5
-        public ActionResult Details(int id)
+        [Authorize]
+        public ActionResult Details(int? id)
         {
-            return View();
+            var book = _bookService.GetBookById(id);
+            var result = _mapper.Map<BookViewModel>(book);
+            result.Body = _bookService.GetBookBody(book);
+
+            return View("Details", result);
         }
 
         // GET: Book/Create
@@ -41,62 +53,49 @@ namespace BookReader.Controllers
 
         // POST: Book/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(CreateBookPostModel book)
         {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            var bookModel = _mapper.Map<BookModel>(book);
+            _bookService.AddBook(bookModel);
+            return View("Books");
         }
 
         // GET: Book/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            var book = _bookService.GetBookById(id);
+            var bookViewModel = _mapper.Map<BookViewModel>(book);
+            var genresModel = _genreService.GetAll();
+            var genresViewModel = _mapper.Map<IList<GenreViewModel>>(genresModel);
+
+            var idBook = bookViewModel.Id;
+
+            MultiSelectList genres = new MultiSelectList(genresViewModel, "Id", "Name"); 
+
+            ViewBag.Genres = genres;           
+
+            return View(bookViewModel);
         }
 
         // POST: Book/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(BookViewModel book, IList<GenreViewModel>genres)
         {
-            try
+            foreach(var genre in genres)
             {
-                // TODO: Add update logic here
+                book.Genres.Add(genre);
+            }
+            var bookModel = _mapper.Map<BookModel>(book);
+            _bookService.UpdateBook(bookModel);
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Books");
         }
 
         // GET: Book/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: Book/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            _bookService.DeleteBook(id);
+            return RedirectToAction("Books","Book");
         }
     }
 }

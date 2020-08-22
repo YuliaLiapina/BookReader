@@ -18,6 +18,7 @@ namespace BookReaderManager.Business.Models
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string UserName { get; set; }
+        public DateTime? RegistrationDate { get; set; }
         public ICollection<WishListModel> WishLists { get; set; }
         public ICollection<BookModel> Books { get; set; }
     }

@@ -1,16 +1,16 @@
-﻿using System;
-using System.Globalization;
+﻿using BookReader.Data;
+using BookReader.Data.Models;
+using BookReader.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using BookReader.Models;
-using BookReader.Data;
-using BookReader.Data.Models;
 
 namespace BookReader.Controllers
 {
@@ -19,12 +19,12 @@ namespace BookReader.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -52,6 +52,12 @@ namespace BookReader.Controllers
             {
                 _userManager = value;
             }
+        }
+
+        //Get: /Account/UserProfile
+        public ActionResult UserProfile()
+        {
+            return View();
         }
 
         //
@@ -82,6 +88,7 @@ namespace BookReader.Controllers
             if (signedUser != null)
             {
                result = await SignInManager.PasswordSignInAsync(signedUser.UserName, model.Password, model.RememberMe, shouldLockout: false);
+                
             }
             else
                result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
@@ -164,10 +171,24 @@ namespace BookReader.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+
+                user.RegistrationDate = DateTime.Now;
+
+                var ctx = new BookReaderDbContext();
+                var roleStore = new RoleStore<IdentityRole>(ctx);
+                var roleMngr = new RoleManager<IdentityRole>(roleStore);
+                var role=roleMngr.Roles.FirstOrDefault(x => x.Name == "User");
+
+                if (role != null)
+                {
+                    this.UserManager.AddToRole(user.Id, role.Name);
+                }
+                //var user = new ApplicationUser { UserName = model.Email, Email = model.Email};
+                
+                //var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

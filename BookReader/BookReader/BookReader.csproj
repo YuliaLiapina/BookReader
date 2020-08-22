@@ -68,6 +68,7 @@
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -189,18 +190,25 @@
     <Compile Include="Autofac\AutofacConfig.cs" />
     <Compile Include="Autofac\MapperAutofacModul.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ChartStatisticsViewModel.cs" />
     <Compile Include="Models\ApplicationUserViewModel.cs" />
     <Compile Include="Models\AuthorViewModel.cs" />
     <Compile Include="Models\BookViewModel.cs" />
+    <Compile Include="Models\CreateBookPostModel.cs" />
+    <Compile Include="Models\EditUserPostModel.cs" />
     <Compile Include="Models\GenreViewModel.cs" />
     <Compile Include="Models\GetBooksViewModel.cs" />
+    <Compile Include="Models\GetUsersViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\WishListViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -231,7 +239,7 @@
     <Content Include="Content\Books\KratchayshayaIstoriyaVremeni\KratchayshayaIstoriyaVremeniCover.jpg" />
     <Content Include="Content\Books\LittlePrince\LittlePrince.txt" />
     <Content Include="Content\Books\LittlePrince\PrinceCover.jpg" />
-    <Content Include="Content\Books\MasterAndMargarita\MasterAndMargatrita.txt" />
+    <Content Include="Content\Books\MasterAndMargarita\MasterAndMargarita.txt" />
     <Content Include="Content\Books\MasterAndMargarita\MasterCover.jpg" />
     <Content Include="Content\Books\Paddington\Paddington.txt" />
     <Content Include="Content\Books\Paddington\PaddingtonCover.jpg" />
@@ -297,9 +305,20 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Book\Books.cshtml" />
+    <Content Include="Views\Admin\AdminPanel.cshtml" />
+    <Content Include="Views\Book\Edit.cshtml" />
+    <Content Include="Views\Admin\Statistics.cshtml" />
+    <Content Include="Views\Admin\UsersInfo.cshtml" />
+    <Content Include="Views\Book\Details.cshtml" />
+    <Content Include="Views\User\UserInfo.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\Book\Create.cshtml" />
+    <Content Include="Views\Admin\ChartArrayBasic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Diagramms\" />
+    <Folder Include="Views\Genre\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

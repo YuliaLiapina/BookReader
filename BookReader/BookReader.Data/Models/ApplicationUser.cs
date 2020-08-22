@@ -17,10 +17,11 @@ namespace BookReader.Data.Models
             Books = new List<Book>();
         }
         public int Age { get; set; }
+        public DateTime? RegistrationDate { get; set; }
 
         public ICollection<WishList> WishLists { get; set; }
         public ICollection<Book> Books { get; set; }
-
+        
             public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
             {
                 // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

@@ -1,6 +1,7 @@
 ﻿using BookReader.Data.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 
@@ -16,11 +17,14 @@ namespace BookReader.Data
 
             var roleAdmin = new IdentityRole { Name = "Admin" };
             var roleUser = new IdentityRole { Name = "User" };
+            var roleModerator = new IdentityRole { Name = "Moderator" };
 
             roleManager.Create(roleAdmin);
             roleManager.Create(roleUser);
+            roleManager.Create(roleModerator);
 
             var admin = new ApplicationUser { Email = "Admin@gmail.com", UserName = "Adminka" };
+            admin.RegistrationDate = DateTime.Now;
             string password = "Admin@gmail.com1";
             var result = userManager.Create(admin, password);
 
