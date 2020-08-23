@@ -38,7 +38,7 @@ namespace BookReader.Controllers
         public ActionResult Edit(ApplicationUserViewModel user)
         {
             var userModel = _mapper.Map<ApplicationUserModel>(user);
-            _userManager.Edit(userModel);
+            _userManager.EditUser(userModel);
 
             return RedirectToAction("Index","Home");
         }

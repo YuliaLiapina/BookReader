@@ -205,10 +205,14 @@
     <Compile Include="Models\AuthorViewModel.cs" />
     <Compile Include="Models\BookViewModel.cs" />
     <Compile Include="Models\CreateBookPostModel.cs" />
+    <Compile Include="Models\CreateGenrePostModel.cs" />
+    <Compile Include="Models\EditBookPostModel.cs" />
     <Compile Include="Models\EditUserPostModel.cs" />
     <Compile Include="Models\GenreViewModel.cs" />
     <Compile Include="Models\GetBooksViewModel.cs" />
+    <Compile Include="Models\GetGenresViewModel.cs" />
     <Compile Include="Models\GetUsersViewModel.cs" />
+    <Compile Include="Models\IndexViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\WishListViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -306,7 +310,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Book\Books.cshtml" />
     <Content Include="Views\Admin\AdminPanel.cshtml" />
-    <Content Include="Views\Book\Edit.cshtml" />
     <Content Include="Views\Admin\Statistics.cshtml" />
     <Content Include="Views\Admin\UsersInfo.cshtml" />
     <Content Include="Views\Book\Details.cshtml" />
@@ -314,11 +317,16 @@
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\Book\Create.cshtml" />
     <Content Include="Views\Admin\ChartArrayBasic.cshtml" />
+    <Content Include="Views\Book\Edit.cshtml" />
+    <Content Include="Views\Genre\Genres.cshtml" />
+    <Content Include="Views\Genre\Edit.cshtml" />
+    <Content Include="Views\Genre\Delete.cshtml" />
+    <Content Include="Views\Shared\GenresPartialView.cshtml" />
+    <Content Include="Views\Genre\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Diagramms\" />
-    <Folder Include="Views\Genre\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

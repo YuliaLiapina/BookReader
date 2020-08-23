@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BookReader.Models;
 using BookReaderManager.Business.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -19,9 +20,24 @@ namespace BookReader.Controllers
             _mapper = mapper;
         }
         // GET: Genre
-        public ActionResult Index()
+        public ActionResult Genres()
         {
-            return View();
+            var genres = _genreService.GetAllGenres();
+            var genresViewModel = _mapper.Map<IList<GenreViewModel>>(genres);
+
+            var result = new GetGenresViewModel();
+            result.Genres = genresViewModel;
+
+            return View(result);
         }
+
+        public ActionResult Delete(int? id)
+        {
+            _genreService.DeleteGenre(id);
+
+            return RedirectToAction("Genres");
+        }
+
+       
     }
 }

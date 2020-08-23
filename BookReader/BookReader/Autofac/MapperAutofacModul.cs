@@ -43,6 +43,9 @@ namespace BookReader.Autofac
                 cfg.CreateMap<BookModel, CreateBookPostModel>();
                 cfg.CreateMap<CreateBookPostModel, BookModel>();
 
+                cfg.CreateMap<EditBookPostModel, BookModel>();
+                cfg.CreateMap<BookModel, EditBookPostModel>();
+
             })).AsSelf().SingleInstance();
 
             builder.Register(c =>

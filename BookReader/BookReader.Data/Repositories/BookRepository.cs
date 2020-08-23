@@ -2,7 +2,6 @@
 using BookReader.Data.Models;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Migrations;
 using System.Linq;
 
 namespace BookReader.Data.Repositories
@@ -50,16 +49,28 @@ namespace BookReader.Data.Repositories
         {
             using(var context = new BookReaderDbContext())
             {
-                var currentBook = context.Books.Include(b=>b.Authors).Include(b=>b.Genres).FirstOrDefault(b => b.Id == book.Id);
+                var currentBook = context.Books.Include(b=>b.Genres).FirstOrDefault(b => b.Id == book.Id);
+                
+                if (currentBook == null)
+                {
+                    context.Books.Add(book);
+                }
 
-                currentBook.Name = book.Name;
-                currentBook.Pages = book.Pages;
-                currentBook.Cover = book.Cover;
-                currentBook.Body = book.Body;
-                currentBook.Genres = book.Genres;
-                currentBook.Authors = book.Authors;
+                else
+                {
+                    foreach (var genre in book.Genres)
+                    {
+                        var selectedGenre = context.Genres.FirstOrDefault(g => g.Id == genre.Id);
+                        if (selectedGenre != null && currentBook.Genres.All(g => g.Id != selectedGenre.Id))
+                        {
+                            currentBook.Genres.Add(selectedGenre);
+                        }
+                    };
 
-                context.Books.AddOrUpdate(currentBook);
+                    context.Books.Attach(currentBook);
+                    context.Entry(currentBook).State = EntityState.Modified;
+                }
+
                 context.SaveChanges();
             }
         }

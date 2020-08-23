@@ -5,6 +5,10 @@ namespace BookReaderManager.Business.Interfaces
 {
     public interface IGenreService
     {
-        IList<GenreModel> GetAll();
+        IEnumerable<GenreModel> GetAllGenres();
+        void AddGenre(GenreModel genre);
+        void DeleteGenre(int? id);
+        GenreModel GetGenreById(int? id);
+        void UpdateGenre(GenreModel genre);
     }
 }

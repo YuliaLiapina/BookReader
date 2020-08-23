@@ -1,0 +1,57 @@
+﻿@model BookReader.Models.GetGenresViewModel
+
+@{
+    ViewBag.Title = "Genres";
+}
+
+<h2>Genres</h2>
+
+@Html.ActionLink("Добавить жанр", "Create")
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Название
+            </th>
+            <th>
+                Книги 
+            </th>
+            <th>
+                Удалить
+            </th>
+            <th>
+                Редактировать
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var genre in Model.Genres)
+        {
+
+            <tr>
+                <td>
+                    @genre.Name
+                </td>
+                <td>
+                    @foreach (var book in genre.Books)
+                    {
+                        <p> @book.Name </p>
+                        foreach (var author in book.Authors)
+                        {
+                            <p>@author.FirstName &nbsp @author.LastName</p>
+                        }
+
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Удалить", "Delete", new { id = genre.Id })
+                </td>
+                <td>
+                    <a href="/Genre/Edit/@genre.Id">Редактировать</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

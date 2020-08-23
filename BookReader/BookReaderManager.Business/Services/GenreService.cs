@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using BookReader.Data.Interfaces;
+using BookReader.Data.Models;
 using BookReaderManager.Business.Interfaces;
 using BookReaderManager.Business.Models;
-using System;
 using System.Collections.Generic;
 
 namespace BookReaderManager.Business.Services
@@ -18,12 +18,37 @@ namespace BookReaderManager.Business.Services
             _mapper = mapper;
         }
 
-        public IList<GenreModel> GetAll()
+        public void AddGenre(GenreModel genre)
         {
-            var genres = _genreRepository.GetAll();
+            var mappedGenre = _mapper.Map<Genre>(genre);
+            _genreRepository.AddGenre(mappedGenre);
+        }
+
+        public void DeleteGenre(int? id)
+        {
+            _genreRepository.DeleteGenre(id);
+        }
+
+        public IEnumerable<GenreModel> GetAllGenres()
+        {
+            var genres = _genreRepository.GetAllGenres();
             var result = _mapper.Map<IList<GenreModel>>(genres);
 
             return result;
+        }
+
+        public GenreModel GetGenreById(int? id)
+        {
+            var genre = _genreRepository.GetGenreById(id);
+            var genreModel = _mapper.Map<GenreModel>(genre);
+
+            return genreModel;
+        }
+
+        public void UpdateGenre(GenreModel genre)
+        {
+            var currentGenre = _mapper.Map<Genre>(genre);
+            _genreRepository.UpdateGenre(currentGenre);
         }
     }
 }

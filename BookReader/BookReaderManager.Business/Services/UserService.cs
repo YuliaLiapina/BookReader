@@ -22,7 +22,7 @@ namespace BookReaderManager.Business.Services
             _mapper = mapper;
         }
 
-        public void Edit(ApplicationUserModel user)
+        public void EditUser(ApplicationUserModel user)
         {
             var userModel = _mapper.Map<ApplicationUser>(user);
             _userRepository.Edit(userModel);
@@ -44,7 +44,7 @@ namespace BookReaderManager.Business.Services
             return userModel;
         }
 
-        public System.Web.Helpers.Chart GetChartStatistics()
+        public System.Web.Helpers.Chart GetUsersChartStatistics()
         {
             var temp = new List<string>();
             var listUsers = new List<string>();

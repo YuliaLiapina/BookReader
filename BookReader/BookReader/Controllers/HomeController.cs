@@ -12,23 +12,30 @@ namespace BookReader.Controllers
     public class HomeController : Controller
     {
         private readonly IBookService _bookService;
+        private readonly IGenreService _genreService;
         private readonly IMapper _mapper;
 
-        public HomeController(IBookService bookService, IMapper mapper)
+        public HomeController(IBookService bookService, IMapper mapper, IGenreService genreService)
         {
             _bookService = bookService;
             _mapper = mapper;
+            _genreService = genreService;
         }
         public ActionResult Index()
         {
             var booksModel = _bookService.GetAllBooks();
             var books = _mapper.Map<IList<BookViewModel>>(booksModel);
 
+            var genresModel = _genreService.GetAllGenres();
+            var genres = _mapper.Map<IList<GenreViewModel>>(genresModel);
+            
             var booksSorted = books.OrderBy(b => b.Name).ToList();
+                        
+            var model = new IndexViewModel();
+            model.Books = booksSorted;
+            model.Genres = genres;
 
-            var getBooks = new GetBooksViewModel();
-            getBooks.Books = booksSorted;
-            return View(getBooks);
+            return View(model);
         }
 
         public ActionResult About()

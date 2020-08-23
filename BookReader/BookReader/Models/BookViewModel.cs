@@ -21,9 +21,11 @@ namespace BookReader.Models
         public string Cover { get; set; }
         public string Body { get; set; }
 
+        public List<int> GenresIds { get; set; }
+
         public ICollection<ApplicationUserViewModel> Users { get; set; }
 
-        public ICollection<AuthorViewModel> Authors { get; set; }
+        public IList<AuthorViewModel> Authors { get; set; }
 
         public ICollection<GenreViewModel> Genres { get; set; }
 

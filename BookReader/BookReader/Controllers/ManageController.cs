@@ -64,7 +64,7 @@ namespace BookReader.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
-            var model = new IndexViewModel
+            var model = new MainPAgeViewModel
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),

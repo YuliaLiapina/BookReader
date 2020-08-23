@@ -24,10 +24,16 @@ namespace BookReader.Autofac
 
             builder.RegisterType<BookRepository>().As<IBookRepository>();
             builder.RegisterType<BookService>().As<IBookService>();
+
             builder.RegisterType<UserRepository>().As<IUserRepository>();
             builder.RegisterType<UserService>().As<IUserService>();
+
             builder.RegisterType<GenreRepository>().As<IGenreRepository>();
             builder.RegisterType<GenreService>().As<IGenreService>();
+
+            builder.RegisterType<AuthorRepository>().As<IAuthorRepository>();
+            builder.RegisterType<AuthorService>().As<IAuthorService>();
+
             builder.RegisterModule<MapperAutofacModul>();
 
             var container = builder.Build();

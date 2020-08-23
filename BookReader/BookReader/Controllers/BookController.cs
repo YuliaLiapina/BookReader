@@ -2,6 +2,7 @@
 using BookReader.Models;
 using BookReaderManager.Business.Interfaces;
 using BookReaderManager.Business.Models;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -14,7 +15,7 @@ namespace BookReader.Controllers
         private readonly IGenreService _genreService;
         private readonly IMapper _mapper;
 
-        public BookController(IBookService bookManager, IMapper mapper, IGenreService genreService)
+        public BookController(IBookService bookManager, IGenreService genreService, IMapper mapper)
         {
             _bookService = bookManager;
             _genreService = genreService;
@@ -65,37 +66,79 @@ namespace BookReader.Controllers
         {
             var book = _bookService.GetBookById(id);
             var bookViewModel = _mapper.Map<BookViewModel>(book);
-            var genresModel = _genreService.GetAll();
+
+            //ViewBag.Genres = new MultiSelectList(_genreService.GetAllGenres(), "Id", "Name", book.Genres.Select(g => g.Id));
+
+            var genresModel = _genreService.GetAllGenres();
             var genresViewModel = _mapper.Map<IList<GenreViewModel>>(genresModel);
 
-            var idBook = bookViewModel.Id;
+            var model = new EditBookPostModel
+            {
+                Genres = from genre in genresViewModel
+                         select new SelectListItem { Text = genre.Name, Value = genre.Id.ToString() }
+            };
 
-            MultiSelectList genres = new MultiSelectList(genresViewModel, "Id", "Name"); 
+            model.Book = bookViewModel;
 
-            ViewBag.Genres = genres;           
-
-            return View(bookViewModel);
+            return View(model);
         }
+
 
         // POST: Book/Edit/5
         [HttpPost]
-        public ActionResult Edit(BookViewModel book, IList<GenreViewModel>genres)
+        public ActionResult Edit(EditBookPostModel bookEdit/*BookViewModel bookEdit*/)
         {
-            foreach(var genre in genres)
+            
+            foreach(var id in bookEdit.SelectedIds)
             {
-                book.Genres.Add(genre);
+                bookEdit.Book.Genres.Add(new GenreViewModel { Id = id });
             }
-            var bookModel = _mapper.Map<BookModel>(book);
-            _bookService.UpdateBook(bookModel);
 
-            return RedirectToAction("Books");
+            var book = _mapper.Map<BookModel>(bookEdit.Book);
+            _bookService.UpdateBook(book);
+
+            //var genresModel = _genreService.GetAllGenres();
+            //var genresViewModel = _mapper.Map<IList<GenreViewModel>>(genresModel);
+
+
+            ////var book = _bookService.GetBookById(bookEdit.Book.Id);
+            ////var bookViewModel = _mapper.Map<BookViewModel>(book);
+
+            //if (bookEdit.SelectedIds != null)
+            //{
+            //    for (int i = 0; i < bookEdit.SelectedIds.Count; i++)
+            //    {
+            //        var genreToAdd = genresViewModel.FirstOrDefault(g => g.Id == bookEdit.SelectedIds[i]);
+            //        bookEdit.Book.Genres.Add(genreToAdd);
+            //    }
+            //}
+            
+            //var bookModel = _mapper.Map<BookModel>(bookEdit.Book);
+            //_bookService.UpdateBook(bookModel);
+
+            return RedirectToAction("Index", "Home");
+            //if (bookEdit.SelectedIds != null)
+            //{
+            //    for (int i = 0; i < bookEdit.SelectedIds.Count; i++)
+            //    {
+            //        var genreToAdd = genresViewModel.FirstOrDefault(g => g.Id == bookEdit.SelectedIds[i]);
+            //        bookViewModel.Genres.Add(genreToAdd);
+            //    }
+            //}
+            //ICollection<GenreViewModel> res = bookViewModel.Genres.GroupBy(x => x.Id).Select(x => x.FirstOrDefault()).ToList();
+            //bookViewModel.Genres = res;
+            //var bookModel = _mapper.Map<BookModel>(bookViewModel);
+            //_bookService.UpdateBook(bookModel);
+
+
         }
 
         // GET: Book/Delete/5
         public ActionResult Delete(int id)
         {
             _bookService.DeleteBook(id);
-            return RedirectToAction("Books","Book");
+            return RedirectToAction("Books", "Book");
         }
     }
 }
+

@@ -5,7 +5,7 @@ using Microsoft.Owin.Security;
 
 namespace BookReader.Models
 {
-    public class IndexViewModel
+    public class MainPAgeViewModel
     {
         public bool HasPassword { get; set; }
         public IList<UserLoginInfo> Logins { get; set; }

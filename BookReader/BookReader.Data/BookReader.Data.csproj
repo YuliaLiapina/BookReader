@@ -58,12 +58,14 @@
   <ItemGroup>
     <Compile Include="BookReaderDbContext.cs" />
     <Compile Include="BookReaderInitializer.cs" />
+    <Compile Include="Interfaces\IAuthorRepository.cs" />
     <Compile Include="Interfaces\IGenreRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Migrations\202008210506325_Add_Column_RegistrationDate.cs" />
     <Compile Include="Migrations\202008210506325_Add_Column_RegistrationDate.Designer.cs">
       <DependentUpon>202008210506325_Add_Column_RegistrationDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\AuthorRepository.cs" />
     <Compile Include="Repositories\BookRepository.cs" />
     <Compile Include="Interfaces\IBookRepository.cs" />
     <Compile Include="Migrations\202008151821414_Add_Entities_Author_Book_Genre_WishList.cs" />

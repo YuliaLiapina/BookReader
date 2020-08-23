@@ -11,8 +11,8 @@ namespace BookReaderManager.Business.Interfaces
     public interface IUserService
     {
         IList<ApplicationUserModel> GetAllUsers();
-        void Edit(ApplicationUserModel user);
+        void EditUser(ApplicationUserModel user);
         ApplicationUserModel GetUserById(string id);
-        Chart GetChartStatistics();
+        Chart GetUsersChartStatistics();
     }
 }

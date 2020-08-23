@@ -46,7 +46,7 @@ namespace BookReader.Controllers
 
         public ActionResult ChartArrayBasic()
         {
-            var chart = _userService.GetChartStatistics();
+            var chart = _userService.GetUsersChartStatistics();
 
             var chartStatisticsModel = new ChartStatisticsViewModel();
             chartStatisticsModel.statistics = chart;

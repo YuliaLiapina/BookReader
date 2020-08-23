@@ -1,24 +1,44 @@
-﻿@model BookReader.Models.GetBooksViewModel
+﻿@model BookReader.Models.IndexViewModel
 @{
     ViewBag.Title = "Home Page";
 }
-<div>
-    <table cellspacing="10" cols="4" cellpadding="3">
-        <tr>
-            <td>
+
+    <div class="books">    
+        <span id="genres">
+            @foreach (var genre in Model.Genres)
+            {
+                <p>@genre.Name</p>
+            }
+        </span>
                 @foreach (var book in Model.Books)
                 {
-                <td>
-                    <img src="@book.Cover" height="150" width="100" />
-                    <a href="/Book/Details/@book.Id">@book.Name</a>
-                </td>
-            }
-            </tr>
-        </table>
-
+        <span id="book">
+            <p><img class="image" src="@book.Cover" height="150" width="100" /></p>
+            <p><a href="/Book/Details/@book.Id">@book.Name</a></p>
+        </span>
+            }       
     </div>
 
-
+<style>
+    
+    #genres{
+        margin-left:10px;
+        margin-top: 50px;
+        width:15%;
+        display:inline-block;
+    }
+    #book{
+        margin-top: 50px;
+        margin-left:50px;
+        padding-top: 20px;
+        width:15%;
+        display:inline-block;
+        text-align:center;
+    }
+    .image{
+        margin-top: 50px;
+    }
+</style>
 
 
 

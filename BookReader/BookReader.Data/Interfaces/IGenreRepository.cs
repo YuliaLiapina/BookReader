@@ -5,6 +5,10 @@ namespace BookReader.Data.Interfaces
 {
     public interface IGenreRepository
     {
-        IList<Genre> GetAll();
+        IList<Genre> GetAllGenres();
+        void AddGenre(Genre genre);
+        void DeleteGenre(int? id);
+        Genre GetGenreById(int? id);
+        void UpdateGenre(Genre genre);
     }
 }
