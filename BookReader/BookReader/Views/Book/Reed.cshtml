@@ -1,0 +1,69 @@
+﻿@model BookReader.Models.BookViewModel
+
+@{
+    ViewBag.Title = "Reed";
+}
+
+<div class="image">
+    <img src="@Model.Cover" width="200" height="300" />
+</div>
+<div class="name-authors-genres">
+    <p class="title">
+        <h2>@Model.Name</h2>
+    </p>
+    @foreach (var author in Model.Authors)
+    {
+        <p>@author.FirstName @author.LastName</p>
+    }
+
+    @foreach (var genre in Model.Genres)
+    {
+        <p>@genre.Name</p>
+    }
+
+    <p></p>
+    <hr />
+    <p></p>
+    <p class="annotation">@Model.Annotation</p>
+</div>
+<div class="book-body">
+    @Html.Raw(Model.Body)
+</div>
+
+
+<style>
+    .name-authors-genres, .image {
+        float: left;
+        margin: 0 10px;
+        margin-top: 20px;
+    }
+
+    .title {
+        margin: 1em 0 0.5em 0;
+        color: #343434;
+        font-size: 22px;
+        line-height: 40px;
+        font-weight: normal;
+        text-transform: uppercase;
+        font-family: 'Orienta', sans-serif;
+        letter-spacing: 1px;
+        font-style: italic;
+    }
+
+    .annotation {
+        text-align: justify;
+        width: 400px;
+    }
+
+    .hr {
+        border: none; /* Убираем границу */
+        background-color: grey; /* Цвет линии */
+        color: red; /* Цвет линии для IE6-7 */
+        height: 2px; /* Толщина линии */
+    }
+
+    .book-body {
+        width: 100%;
+    }
+</style>
+

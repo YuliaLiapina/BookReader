@@ -1,9 +1,6 @@
 ﻿using BookReaderManager.Business.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
 namespace BookReaderManager.Business.Interfaces
 {
@@ -15,5 +12,7 @@ namespace BookReaderManager.Business.Interfaces
         BookModel GetBookById(int? id);
         void UpdateBook(BookModel book);
         string GetBookBody(BookModel book);
+        BookModel AddNewGenresAndAuthors(BookModel book, IList<int> genresIds, IList<int> authorsIds);
+        BookModel AddLoadedFiles(BookModel book, IEnumerable<HttpPostedFileBase> uploads, string localPath);
     }
 }

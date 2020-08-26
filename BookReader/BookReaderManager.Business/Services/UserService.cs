@@ -3,11 +3,9 @@ using BookReader.Data.Interfaces;
 using BookReader.Data.Models;
 using BookReaderManager.Business.Interfaces;
 using BookReaderManager.Business.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Helpers;
-using System.Web.UI.DataVisualization.Charting;
 
 namespace BookReaderManager.Business.Services
 {
@@ -44,7 +42,7 @@ namespace BookReaderManager.Business.Services
             return userModel;
         }
 
-        public System.Web.Helpers.Chart GetUsersChartStatistics()
+        public Chart GetUsersChartStatistics()
         {
             var temp = new List<string>();
             var listUsers = new List<string>();
@@ -57,7 +55,7 @@ namespace BookReaderManager.Business.Services
             {
                 if (item.RegistrationDate != null)
                 {
-                    var itemString = item.RegistrationDate.Value.Date.ToString();
+                    var itemString = item.RegistrationDate.Value.Date.ToShortDateString();
                     temp.Add(itemString);
                 }
                 listDates = temp.Distinct().ToList();
@@ -68,17 +66,18 @@ namespace BookReaderManager.Business.Services
                 var itemString2 = temp.Where(b => b == item).Count().ToString();
                 listUsers.Add(itemString2);
             }
-            var myChart = new System.Web.Helpers.Chart(width: 400, height: 200, theme: ChartTheme.Green)
-                   .AddTitle("Statistics")
+            var myChart = new Chart(width: 800, height: 400, theme: ChartTheme.Vanilla)
+                   .AddTitle("Статистика")
                    .AddSeries(
-                       name: "Statistics",                       
+                       name: "Статистика",                       
                        chartType: "Column",
                        xValue: listDates,
-                       xField: "Date",
-                   yValues: listUsers,
-                   yFields: "CountUsers");
+                   yValues: listUsers);
 
-              return myChart;
+            myChart.SetXAxis("Дата регистрации");
+            myChart.SetYAxis("Количество зарегистрированных пользователей", 0, 10);
+
+            return myChart;
         }
     }
 }

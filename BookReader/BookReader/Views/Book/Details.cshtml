@@ -4,58 +4,67 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>BookViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dd>
-            <img src="@Model.Cover" width="100" height="100" />
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Authors)
-        </dt>
-
-        <dd>
-            @foreach (var author in Model.Authors)
-            {
-            <p>@author.FirstName @author.LastName</p>
-            }
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Genres)
-        </dt>
-
-        <dd>
-            @foreach (var genre in Model.Genres)
-            {
-                <p>@genre</p>
-            }
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Pages)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Pages)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Annotation)
-        </dt>
-
-        <dd>
-            @Html.Raw(Model.Body)
-        </dd>
-    </dl>
+@*<hr />
+    <dl class="dl-horizontal">*@
+<div class="image">
+    <img src="@Model.Cover" width="200" height="300" />
 </div>
+<div class="name-authors-genres">
+    <p class="title">
+        <h2>@Model.Name</h2>
+    </p>
+    @foreach (var author in Model.Authors)
+    {
+        <p>@author.FirstName @author.LastName</p>
+    }
+
+    @foreach (var genre in Model.Genres)
+    {
+        <p>@genre.Name</p>
+    }
+
+    <p></p>
+    <hr />
+    <p></p>
+    <p class="annotation">@Model.Annotation</p>
+
+    <p><a class="btn btn-default" href="/Book/Reed/@Model.Id">Читать &raquo;</a></p>
+    <p><a class="btn btn-default" href="/Book/Books">Добавить в закладки &raquo;</a></p>
+
+</div>
+
+@*<div class="body"> @Html.Raw(Model.Body) </div>*@
+
+
+<style>
+    .name-authors-genres, .image {
+        float: left;
+        margin: 0 10px;
+        margin-top:20px;
+    }
+    .title{
+    margin: 1em 0 0.5em 0;
+    color: #343434;
+    font-size: 22px;
+    line-height: 40px;
+    font-weight: normal;
+    text-transform: uppercase;
+    font-family: 'Orienta', sans-serif;
+    letter-spacing: 1px;
+    font-style: italic;
+    }
+    .annotation{
+        text-align:justify;
+        width:400px;
+    }
+     .hr {
+    border: none; /* Убираем границу */
+    background-color: grey; /* Цвет линии */
+    color: red; /* Цвет линии для IE6-7 */
+    height: 2px; /* Толщина линии */
+   }
+     .body{
+         text-align:justify;
+     }
+
+</style>

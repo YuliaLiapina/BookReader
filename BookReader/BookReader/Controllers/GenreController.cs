@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BookReader.Models;
 using BookReaderManager.Business.Interfaces;
+using BookReaderManager.Business.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,44 @@ namespace BookReader.Controllers
             return RedirectToAction("Genres");
         }
 
-       
+        public ActionResult Create ()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(CreateGenrePostModel genre)
+        {
+            var genreModel = _mapper.Map<GenreModel>(genre);
+            _genreService.AddGenre(genreModel);
+
+            return RedirectToAction("Genres");
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            var genre = _genreService.GetGenreById(id);
+            var model = _mapper.Map<EditGenrePostModel>(genre);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(EditGenrePostModel genreEdit)
+        {
+            var genre = _mapper.Map<GenreModel>(genreEdit);
+
+            _genreService.UpdateGenre(genre);
+
+            return RedirectToAction("Genres");
+        }
+
+        public ActionResult Details(int? id)
+        {
+            var genre = _genreService.GetGenreById(id);
+            var genreViewModel = _mapper.Map<GenreViewModel>(genre);
+
+            return View(genreViewModel);
+        }
     }
 }

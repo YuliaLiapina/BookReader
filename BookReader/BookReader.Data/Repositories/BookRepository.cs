@@ -12,7 +12,10 @@ namespace BookReader.Data.Repositories
         {
             using(var context = new BookReaderDbContext())
             {
+                book.Genres = book.Genres.Select(bookGenre => context.Genres.First(genre => genre.Id == bookGenre.Id)).ToList();
+                book.Authors = book.Authors.Select(bookAuthor => context.Authors.First(author => author.Id == bookAuthor.Id)).ToList(); 
                 context.Books.Add(book);
+
                 context.SaveChanges();
             }
         }
@@ -49,7 +52,7 @@ namespace BookReader.Data.Repositories
         {
             using(var context = new BookReaderDbContext())
             {
-                var currentBook = context.Books.Include(b=>b.Genres).FirstOrDefault(b => b.Id == book.Id);
+                var currentBook = context.Books.Include(b=>b.Genres).Include(b=>b.Authors).FirstOrDefault(b => b.Id == book.Id);
                 
                 if (currentBook == null)
                 {
@@ -67,6 +70,20 @@ namespace BookReader.Data.Repositories
                         }
                     };
 
+                    foreach(var author in book.Authors)
+                    {
+                        var selectedAuthor = context.Authors.FirstOrDefault(a => a.Id == author.Id);
+                        if(selectedAuthor!=null && currentBook.Authors.All(a=>a.Id!=selectedAuthor.Id))
+                        {
+                            currentBook.Authors.Add(selectedAuthor);
+                        }
+                    }
+
+                    currentBook.Name = book.Name;
+                    currentBook.Annotation = book.Annotation;
+                    currentBook.Cover = book.Cover;
+                    currentBook.Body = book.Body;
+                    
                     context.Books.Attach(currentBook);
                     context.Entry(currentBook).State = EntityState.Modified;
                 }

@@ -3,28 +3,26 @@
     ViewBag.Title = "AdminPanel";
 }
 
-<h2>AdminPanel</h2>
-<h3>Панель книг</h3>
-
-@Html.ActionLink("Add new book", "Create")
+@*@Html.ActionLink("Добавить новую книгу", "Create")*@
+    <p><a class="btn btn-default" href="/Book/Create">Добавить новую книгу &raquo;</a></p>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                Name
+                Название
             </th>
             <th>
-                Writers
+                Авторы
             </th>
             <th>
-                Categories
+                Жанры
             </th>
             <th>
-                Remove
+                Удалить книгу
             </th>
             <th>
-                Edit
+                Редактировать книгу
             </th>
         </tr>
     </thead>
@@ -49,10 +47,10 @@
                     }
                 </td>
                 <td>
-                    @Html.ActionLink("Delete", "Delete", new { id = book.Id })
+                    <p><a class="btn btn-default" href="/Book/Delete/@book.Id">Удалить книгу &raquo;</a></p>
                 </td>
                 <td>
-                    <a href="/Book/Edit/@book.Id">Edit book</a>
+                    <p><a class="btn btn-default" href="/Book/Edit/@book.Id">Редактировать книгу&raquo;</a></p>
                 </td>
             </tr>
         }

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Web;
 
 namespace BookReaderManager.Business.Services
 {
@@ -64,6 +65,50 @@ namespace BookReaderManager.Business.Services
             bookBody = bookBody.Replace(Environment.NewLine, "<p>");
 
             return bookBody;
+        }
+
+        public BookModel AddNewGenresAndAuthors(BookModel book, IList<int> genresIds, IList<int> authorsIds)
+        {
+            if (genresIds != null)
+            {
+                foreach (var id in genresIds)
+                {
+                    book.Genres.Add(new GenreModel { Id = id });
+                }
+            }
+            if (authorsIds != null)
+            {
+                foreach (var id in authorsIds)
+                {
+                    book.Authors.Add(new AuthorModel { Id = id });
+                }
+            }
+
+            return book;
+        }
+
+        public BookModel AddLoadedFiles(BookModel book, IEnumerable<HttpPostedFileBase> uploads, string localPath)
+        {
+            if (uploads != null)
+            {
+                foreach (var file in uploads)
+                {
+                    string fileName = Path.GetFileName(file.FileName);
+                    var pathBody = localPath + fileName;
+                    file.SaveAs(pathBody);
+                    var textFile = file.ContentType;
+
+                    if (textFile == "text/plain")
+                    {
+                        book.Body = "/Content/Files/" + fileName;
+                    }
+                    else
+                    {
+                        book.Cover = "/Content/Files/" + fileName;
+                    }
+                }
+            }
+            return book;
         }
     }
 }

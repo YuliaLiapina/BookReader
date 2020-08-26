@@ -1,0 +1,33 @@
+﻿@model BookReader.Models.AuthorViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dd>
+            @foreach (var book in Model.Books)
+            {
+                <p><a href="/Book/Details/@book.Id">@book.Name</a></p>
+            }
+        </dd>
+    </dl>
+</div>

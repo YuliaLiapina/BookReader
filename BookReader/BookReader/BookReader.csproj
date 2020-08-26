@@ -191,28 +191,34 @@
     <Compile Include="Autofac\MapperAutofacModul.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AuthorController.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WishListController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ChartStatisticsViewModel.cs" />
-    <Compile Include="Models\ApplicationUserViewModel.cs" />
-    <Compile Include="Models\AuthorViewModel.cs" />
-    <Compile Include="Models\BookViewModel.cs" />
-    <Compile Include="Models\CreateBookPostModel.cs" />
-    <Compile Include="Models\CreateGenrePostModel.cs" />
-    <Compile Include="Models\EditBookPostModel.cs" />
-    <Compile Include="Models\EditUserPostModel.cs" />
-    <Compile Include="Models\GenreViewModel.cs" />
-    <Compile Include="Models\GetBooksViewModel.cs" />
-    <Compile Include="Models\GetGenresViewModel.cs" />
-    <Compile Include="Models\GetUsersViewModel.cs" />
-    <Compile Include="Models\IndexViewModel.cs" />
+    <Compile Include="Models\User\ApplicationUserViewModel.cs" />
+    <Compile Include="Models\Author\AuthorViewModel.cs" />
+    <Compile Include="Models\Book\BookViewModel.cs" />
+    <Compile Include="Models\Author\CreateAuthorPostModel.cs" />
+    <Compile Include="Models\Book\CreateBookPostModel.cs" />
+    <Compile Include="Models\Genre\CreateGenrePostModel.cs" />
+    <Compile Include="Models\Author\EditAuthorPostModel.cs" />
+    <Compile Include="Models\Book\EditBookPostModel.cs" />
+    <Compile Include="Models\Genre\EditGenrePostModel.cs" />
+    <Compile Include="Models\User\EditUserPostModel.cs" />
+    <Compile Include="Models\Genre\GenreViewModel.cs" />
+    <Compile Include="Models\Author\GetAuthorsViewModel.cs" />
+    <Compile Include="Models\Book\GetBooksViewModel.cs" />
+    <Compile Include="Models\Genre\GetGenresViewModel.cs" />
+    <Compile Include="Models\User\GetUsersViewModel.cs" />
+    <Compile Include="Models\StartPageIndexViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\WishListViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -319,14 +325,20 @@
     <Content Include="Views\Admin\ChartArrayBasic.cshtml" />
     <Content Include="Views\Book\Edit.cshtml" />
     <Content Include="Views\Genre\Genres.cshtml" />
-    <Content Include="Views\Genre\Edit.cshtml" />
-    <Content Include="Views\Genre\Delete.cshtml" />
     <Content Include="Views\Shared\GenresPartialView.cshtml" />
     <Content Include="Views\Genre\Create.cshtml" />
+    <Content Include="Views\Genre\Edit.cshtml" />
+    <Content Include="Views\Author\Authors.cshtml" />
+    <Content Include="Views\Author\Edit.cshtml" />
+    <Content Include="Views\Author\Create.cshtml" />
+    <Content Include="Views\Genre\Details.cshtml" />
+    <Content Include="Views\Author\Details.cshtml" />
+    <Content Include="Views\Book\Reed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Diagramms\" />
+    <Folder Include="Content\Files\" />
+    <Folder Include="Views\WishList\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

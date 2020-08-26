@@ -1,4 +1,4 @@
-﻿@model BookReader.Models.GenreViewModel
+﻿@model BookReader.Models.EditGenrePostModel
 
 @{
     ViewBag.Title = "Edit";
@@ -11,11 +11,9 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>GenreViewModel</h4>
+        <h4>EditGenrePostModel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

@@ -1,0 +1,28 @@
+﻿@model BookReader.Models.GenreViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Books)
+        </dt>
+
+        <dd>
+            @foreach (var book in Model.Books)
+            {
+                <p><a href="/Book/Details/@book.Id">@book.Name</a></p>
+            }
+        </dd>
+    </dl>
+</div>

@@ -2,9 +2,11 @@
 using BookReader.Models;
 using BookReaderManager.Business.Interfaces;
 using BookReaderManager.Business.Models;
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace BookReader.Controllers
@@ -13,12 +15,14 @@ namespace BookReader.Controllers
     {
         private readonly IBookService _bookService;
         private readonly IGenreService _genreService;
+        private readonly IAuthorService _authorServise;
         private readonly IMapper _mapper;
 
-        public BookController(IBookService bookManager, IGenreService genreService, IMapper mapper)
+        public BookController(IBookService bookManager, IGenreService genreService, IAuthorService authorServise, IMapper mapper)
         {
             _bookService = bookManager;
             _genreService = genreService;
+            _authorServise = authorServise;
             _mapper = mapper;
         }
         // GET: Book
@@ -41,7 +45,7 @@ namespace BookReader.Controllers
         {
             var book = _bookService.GetBookById(id);
             var result = _mapper.Map<BookViewModel>(book);
-            result.Body = _bookService.GetBookBody(book);
+            //result.Body = _bookService.GetBookBody(book);
 
             return View("Details", result);
         }
@@ -49,16 +53,48 @@ namespace BookReader.Controllers
         // GET: Book/Create
         public ActionResult Create()
         {
+            ViewBag.Genres = new MultiSelectList(_genreService.GetAllGenres(), "Id", "Name");
+            ViewBag.Authors = new MultiSelectList(_authorServise.GetAllAuthors(), "Id", "LastName");
+
+            //    var genresModel = _genreService.GetAllGenres();
+            //    var genresViewModel = _mapper.Map<IList<GenreViewModel>>(genresModel);
+
+            //    var authorsModel = _authorServise.GetAllAuthors();
+            //    var authorsViewModel = _mapper.Map<IList<AuthorViewModel>>(authorsModel);
+
+            //    var model = new CreateBookPostModel
+            //    {
+            //        Genres = from genre in genresViewModel
+            //                 select new SelectListItem { Text = genre.Name, Value = genre.Id.ToString() },
+            //        Authors = from author in authorsViewModel
+            //                  select new SelectListItem { Text = $"{author.FirstName} {author.LastName}", Value = author.Id.ToString() }
+            //    };
+
             return View();
         }
 
         // POST: Book/Create
         [HttpPost]
-        public ActionResult Create(CreateBookPostModel book)
+        public ActionResult Create(CreateBookPostModel book, IEnumerable<HttpPostedFileBase> uploads)
         {
-            var bookModel = _mapper.Map<BookModel>(book);
-            _bookService.AddBook(bookModel);
-            return View("Books");
+            //if (ModelState.IsValid)
+            //{
+                var pathBody = Server.MapPath("~/Content/Files/");
+                var bookModel = _mapper.Map<BookModel>(book);
+
+                var bookAddFiles = _bookService.AddLoadedFiles(bookModel, uploads, pathBody);
+                var result = _bookService.AddNewGenresAndAuthors(bookAddFiles, book.GenresIds, book.AuthorsIds);
+
+                _bookService.AddBook(result);
+
+                return RedirectToAction("Index", "Home");
+            //}
+          
+            //var book1 = _bookService.CheckLoadedFiles(bookModel, uploads);
+            // var bookModel = _mapper.Map<BookModel>(book);
+
+            //return RedirectToAction("Create");
+
         }
 
         // GET: Book/Edit/5
@@ -67,15 +103,18 @@ namespace BookReader.Controllers
             var book = _bookService.GetBookById(id);
             var bookViewModel = _mapper.Map<BookViewModel>(book);
 
-            //ViewBag.Genres = new MultiSelectList(_genreService.GetAllGenres(), "Id", "Name", book.Genres.Select(g => g.Id));
-
             var genresModel = _genreService.GetAllGenres();
             var genresViewModel = _mapper.Map<IList<GenreViewModel>>(genresModel);
+
+            var authorsModel = _authorServise.GetAllAuthors();
+            var authorsViewModel = _mapper.Map<IList<AuthorViewModel>>(authorsModel);
 
             var model = new EditBookPostModel
             {
                 Genres = from genre in genresViewModel
-                         select new SelectListItem { Text = genre.Name, Value = genre.Id.ToString() }
+                         select new SelectListItem { Text = genre.Name, Value = genre.Id.ToString() },
+                Authors = from author in authorsViewModel
+                          select new SelectListItem { Text = $"{author.FirstName} {author.LastName}", Value = author.Id.ToString() }
             };
 
             model.Book = bookViewModel;
@@ -86,51 +125,16 @@ namespace BookReader.Controllers
 
         // POST: Book/Edit/5
         [HttpPost]
-        public ActionResult Edit(EditBookPostModel bookEdit/*BookViewModel bookEdit*/)
+        public ActionResult Edit(EditBookPostModel bookEdit, IEnumerable<HttpPostedFileBase> uploads)
         {
-            
-            foreach(var id in bookEdit.SelectedIds)
-            {
-                bookEdit.Book.Genres.Add(new GenreViewModel { Id = id });
-            }
 
-            var book = _mapper.Map<BookModel>(bookEdit.Book);
-            _bookService.UpdateBook(book);
+            var bookModel = _mapper.Map<BookModel>(bookEdit.Book);
 
-            //var genresModel = _genreService.GetAllGenres();
-            //var genresViewModel = _mapper.Map<IList<GenreViewModel>>(genresModel);
+            var result = _bookService.AddNewGenresAndAuthors(bookModel, bookEdit.GenresIds, bookEdit.AuthorsIds);
 
-
-            ////var book = _bookService.GetBookById(bookEdit.Book.Id);
-            ////var bookViewModel = _mapper.Map<BookViewModel>(book);
-
-            //if (bookEdit.SelectedIds != null)
-            //{
-            //    for (int i = 0; i < bookEdit.SelectedIds.Count; i++)
-            //    {
-            //        var genreToAdd = genresViewModel.FirstOrDefault(g => g.Id == bookEdit.SelectedIds[i]);
-            //        bookEdit.Book.Genres.Add(genreToAdd);
-            //    }
-            //}
-            
-            //var bookModel = _mapper.Map<BookModel>(bookEdit.Book);
-            //_bookService.UpdateBook(bookModel);
+            _bookService.UpdateBook(result);
 
             return RedirectToAction("Index", "Home");
-            //if (bookEdit.SelectedIds != null)
-            //{
-            //    for (int i = 0; i < bookEdit.SelectedIds.Count; i++)
-            //    {
-            //        var genreToAdd = genresViewModel.FirstOrDefault(g => g.Id == bookEdit.SelectedIds[i]);
-            //        bookViewModel.Genres.Add(genreToAdd);
-            //    }
-            //}
-            //ICollection<GenreViewModel> res = bookViewModel.Genres.GroupBy(x => x.Id).Select(x => x.FirstOrDefault()).ToList();
-            //bookViewModel.Genres = res;
-            //var bookModel = _mapper.Map<BookModel>(bookViewModel);
-            //_bookService.UpdateBook(bookModel);
-
-
         }
 
         // GET: Book/Delete/5
@@ -138,6 +142,15 @@ namespace BookReader.Controllers
         {
             _bookService.DeleteBook(id);
             return RedirectToAction("Books", "Book");
+        }
+
+        public ActionResult Reed(int? id)
+        {
+            var book = _bookService.GetBookById(id);
+            var result = _mapper.Map<BookViewModel>(book);
+            result.Body = _bookService.GetBookBody(book);
+
+            return View(result);
         }
     }
 }

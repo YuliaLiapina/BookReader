@@ -44,9 +44,7 @@ namespace BookReader.Data.Repositories
                 var currentGenre = context.Genres.Include(g => g.Books).FirstOrDefault(g => g.Id == genre.Id);
 
                 currentGenre.Name = genre.Name;
-                currentGenre.Books = genre.Books;
 
-                context.Genres.AddOrUpdate(currentGenre);
                 context.SaveChanges();
             }
         }

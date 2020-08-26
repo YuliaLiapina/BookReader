@@ -41,16 +41,5 @@ namespace BookReader.Data.Repositories
                 return user;
             }
         }
-
-        //public void AddRoleByAdmin(ApplicationUser user)
-        //{
-        //    using (var context = new BookReaderDbContext())
-        //    {
-        //       var currentUser = context.Users.FirstOrDefault(u => u.Id == user.Id);
-        //        currentUser = user;
-        //        context.Users.AddOrUpdate(currentUser);
-        //        context.SaveChanges();
-        //    }
-        //}
     }
 }

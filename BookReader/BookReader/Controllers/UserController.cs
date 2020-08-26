@@ -30,17 +30,23 @@ namespace BookReader.Controllers
         {
 
             var user = _userManager.GetUserById(id);
-            var userViewModel = _mapper.Map<ApplicationUserViewModel>(user);
+            var userViewModel = _mapper.Map<EditUserPostModel>(user);
 
             return View(userViewModel);
         }
         [HttpPost]
-        public ActionResult Edit(ApplicationUserViewModel user)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(EditUserPostModel user)
         {
-            var userModel = _mapper.Map<ApplicationUserModel>(user);
-            _userManager.EditUser(userModel);
+            if(ModelState.IsValid)
+            {
+                var userModel = _mapper.Map<ApplicationUserModel>(user);
+                _userManager.EditUser(userModel);
 
-            return RedirectToAction("Index","Home");
+                return RedirectToAction("UserInfo");
+            }
+           
+            return View("Edit");
         }
     }
 }
