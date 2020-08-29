@@ -2,72 +2,92 @@
 @{
     ViewBag.Title = "Home Page";
 }
-<div class="container body-content">
-    <div class="genres">
-        <h1>Жанры</h1>
-        @foreach (var genre in Model.Genres)
-        {
-            <p><a href="/Genre/Details/@genre.Id">@genre.Name</a></p>
-        }
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2" id="genre">
+            <h1>Жанры</h1>
+            @foreach (var genre in Model.Genres)
+            {
+                <p><a href="/Genre/Details/@genre.Id">@genre.Name</a></p>
+            }
         </div>
-    <div class="authors">
-        <h1>Авторы</h1>
+
+        <div class="col-8" id="books">
+            @foreach (var book in Model.Books)
+            {
+                <p class="element">
+                    <img class="image" src="@book.Cover" height="150" width="100" /><br />
+                    <a href="/Book/Details/@book.Id">@book.Name</a>
+                </p>
+            }
+        </div>
+
+        <div class="col-2">
+            <h1>Авторы</h1>
             @foreach (var author in Model.Authors)
             {
                 <p><a href="/Author/Details/@author.Id">@author.FirstName @author.LastName</a></p>
             }
+        </div>
     </div>
 </div>
-<div class="books">
-    @foreach (var book in Model.Books)
-    {
-    <span class="book-elements">
 
-        <p class="element"><img class="image" src="@book.Cover" height="150" width="100" /><br />
-        <a href="/Book/Details/@book.Id">@book.Name</a></p>
-    </span>
-    }
-</div>
 <style>
-       .container {
-  position: relative;
-}
-
-.genres {
-  position: absolute;
-  top: 8px;
-  left: 16px;
-  font-size: 16px;
-}
-.authors{   
-  position: absolute;
-  top: 8px;
-  right: 16px;
-  font-size: 16px;
-}
-   .books{
-  position: absolute;
-  top: 50%;
-  width: 60%;
-  display: inline-block;
-  margin-left:300px;
-   }
-   .book-elements{
-       display:inline-block;
-       margin-left:5px;
-       margin-right: 5px;
-       margin-bottom:5px;
-   }
-   .element p{
-       text-align:center;
-         margin-left:5px;
-       margin-right: 5px;
-       margin-bottom:5px;
-   }
-   .book-elements img{
-       text-align:center;
-   }
+    #genre{
+        border-right: thin solid #ccc;
+    }
+    .col-8{
+        display: inline-block;
+    }
 </style>
+@*<style>
+    .container {
+        position: relative;
+    }
+
+    .genres {
+        position: absolute;
+        top: 8px;
+        left: 16px;
+        font-size: 16px;
+    }
+
+    .authors {
+        position: absolute;
+        top: 8px;
+        right: 16px;
+        font-size: 16px;
+    }
+
+    .books {
+        position: absolute;
+        top: 50%;
+        width: 60%;
+        display: inline-block;
+        margin-left: 300px;
+    }
+
+    .book-elements {
+        display: inline-block;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
+
+    .element p {
+        text-align: center;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
+
+    .book-elements img {
+        text-align: center;
+    }
+</style>*@
 
 
 

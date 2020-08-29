@@ -2,7 +2,6 @@
 using BookReader.Data.Models;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Migrations;
 using System.Linq;
 
 namespace BookReader.Data.Repositories
@@ -37,6 +36,15 @@ namespace BookReader.Data.Repositories
             }
         }
 
+        public Genre GetGenreByName(Genre genre)
+        {
+            using(var context = new BookReaderDbContext())
+            {
+                var currentGenre = context.Genres.FirstOrDefault(g => g.Name == genre.Name);
+                return currentGenre;
+            }
+        }
+
         public void UpdateGenre(Genre genre)
         {
             using (var context = new BookReaderDbContext())
@@ -57,5 +65,7 @@ namespace BookReader.Data.Repositories
                 return genres;
             }
         }
+
+
     }
 }

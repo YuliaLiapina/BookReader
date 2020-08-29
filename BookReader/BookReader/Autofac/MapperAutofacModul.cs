@@ -2,6 +2,8 @@
 using AutoMapper;
 using BookReader.Data.Models;
 using BookReader.Models;
+using BookReader.Models.Book;
+using BookReader.Models.WishList;
 using BookReaderManager.Business.Models;
 
 namespace BookReader.Autofac
@@ -66,6 +68,15 @@ namespace BookReader.Autofac
 
                 cfg.CreateMap<EditUserPostModel, ApplicationUserModel>();
                 cfg.CreateMap<ApplicationUserModel, EditUserPostModel>();
+
+                cfg.CreateMap<CreateWishListPostModel, WishListModel>();
+                cfg.CreateMap<WishListModel, CreateWishListPostModel>();
+
+                cfg.CreateMap<WishListModel, EditWishListPostModel>();
+                cfg.CreateMap<EditWishListPostModel, WishListModel>();
+
+                cfg.CreateMap<BookViewModel, BookDetailsViewModel>();
+                cfg.CreateMap<BookDetailsViewModel, BookViewModel>();
 
             })).AsSelf().SingleInstance();
 

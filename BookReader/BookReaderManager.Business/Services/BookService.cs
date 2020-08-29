@@ -6,6 +6,7 @@ using BookReaderManager.Business.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Web;
 
@@ -37,8 +38,9 @@ namespace BookReaderManager.Business.Services
         {
             var books = _bookRepository.GetAllBooks();
             var result = _mapper.Map<IList<BookModel>>(books);
+            var booksSorted = result.OrderBy(b => b.Name).ToList();
 
-            return result;
+            return booksSorted;
         }
 
         public BookModel GetBookById(int? id)

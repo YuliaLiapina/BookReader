@@ -202,6 +202,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Book\BookDetailsViewModel.cs" />
     <Compile Include="Models\ChartStatisticsViewModel.cs" />
     <Compile Include="Models\User\ApplicationUserViewModel.cs" />
     <Compile Include="Models\Author\AuthorViewModel.cs" />
@@ -220,7 +221,10 @@
     <Compile Include="Models\User\GetUsersViewModel.cs" />
     <Compile Include="Models\StartPageIndexViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\WishListViewModel.cs" />
+    <Compile Include="Models\WishList\WishListViewModel.cs" />
+    <Compile Include="Models\WishList\CreateWishListPostModel.cs" />
+    <Compile Include="Models\WishList\EditWishListPostModel.cs" />
+    <Compile Include="Models\WishList\GetWishListsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -334,11 +338,14 @@
     <Content Include="Views\Genre\Details.cshtml" />
     <Content Include="Views\Author\Details.cshtml" />
     <Content Include="Views\Book\Reed.cshtml" />
+    <Content Include="Views\WishList\Create.cshtml" />
+    <Content Include="Views\WishList\WishLists.cshtml" />
+    <Content Include="Views\WishList\Details.cshtml" />
+    <Content Include="Views\WishList\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Files\" />
-    <Folder Include="Views\WishList\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -1,11 +1,9 @@
-﻿@model BookReader.Models.BookViewModel
+﻿@model BookReader.Models.Book.BookDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
 }
 
-@*<hr />
-    <dl class="dl-horizontal">*@
 <div class="image">
     <img src="@Model.Cover" width="200" height="300" />
 </div>
@@ -29,7 +27,33 @@
     <p class="annotation">@Model.Annotation</p>
 
     <p><a class="btn btn-default" href="/Book/Reed/@Model.Id">Читать &raquo;</a></p>
-    <p><a class="btn btn-default" href="/Book/Books">Добавить в закладки &raquo;</a></p>
+
+    @*<div class="dropdown show">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           Добавить в закладки
+        </a>*@
+
+        @*<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a href="/WishList/Create">Создать новый список желаний &raquo;</a>
+            <a href="/WishList/AddBookToWishList">Выбрать существующий список желаний &raquo;</a> 
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+
+            </div>
+        </div>*@
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Добавить в закладки
+            </button>
+            <div class="dropdown-menu">
+                @foreach (var wishList in Model.UserWishLists)
+                {
+                    <p> @Html.ActionLink($"{@wishList.Name}", "AddBookToWishList", "WishList",  new {bookId = Model.Id, wishListId = wishList.Id }, null)</p>                   
+                }
+                <p><a href="/WishList/Create">Создать новый список желаний</a></p>
+            </div>
+        </div>
 
 </div>
 

@@ -3,28 +3,29 @@
 @{
     ViewBag.Title = "Reed";
 }
+<div class="book-info">
+    <div class="image">
+        <img src="@Model.Cover" width="200" height="300" />
+    </div>
+    <div class="name-authors-genres">
+        <p class="title">
+            <h2>@Model.Name</h2>
+        </p>
+        @foreach (var author in Model.Authors)
+        {
+            <p>@author.FirstName @author.LastName</p>
+        }
 
-<div class="image">
-    <img src="@Model.Cover" width="200" height="300" />
-</div>
-<div class="name-authors-genres">
-    <p class="title">
-        <h2>@Model.Name</h2>
-    </p>
-    @foreach (var author in Model.Authors)
-    {
-        <p>@author.FirstName @author.LastName</p>
-    }
+        @foreach (var genre in Model.Genres)
+        {
+            <p>@genre.Name</p>
+        }
 
-    @foreach (var genre in Model.Genres)
-    {
-        <p>@genre.Name</p>
-    }
-
-    <p></p>
-    <hr />
-    <p></p>
-    <p class="annotation">@Model.Annotation</p>
+        <p></p>
+        <hr />
+        <p></p>
+        <p class="annotation">@Model.Annotation</p>
+    </div>
 </div>
 <div class="book-body">
     @Html.Raw(Model.Body)
@@ -37,7 +38,9 @@
         margin: 0 10px;
         margin-top: 20px;
     }
-
+    .name-authors-genres{
+        width:70%;
+    }
     .title {
         margin: 1em 0 0.5em 0;
         color: #343434;
@@ -60,10 +63,10 @@
         background-color: grey; /* Цвет линии */
         color: red; /* Цвет линии для IE6-7 */
         height: 2px; /* Толщина линии */
+        width:50%;
     }
-
-    .book-body {
-        width: 100%;
+    .book-body{
+        text-align:justify;
     }
 </style>
 

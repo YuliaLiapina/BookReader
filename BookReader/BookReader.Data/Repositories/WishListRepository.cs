@@ -57,6 +57,40 @@ namespace BookReader.Data.Repositories
                 context.SaveChanges();
             }
         }
+
+        public IList<WishList>GetWishListsByUserId(string id)
+        {
+            using (var context = new BookReaderDbContext())
+            {
+                var wishLists = context.WishLists.Where(w => w.UserId == id).ToList();
+
+                return wishLists;
+            }
+        }
+
+        public void DeleteBookFromWishList(Book book, int? wishListId)
+        {
+            using(var context = new BookReaderDbContext())
+            {
+                var wishList = context.WishLists.Include(w=>w.Books).FirstOrDefault(w => w.Id == wishListId);
+                var currentBook = context.Books.FirstOrDefault(b => b.Id == book.Id);
+                wishList.Books.Remove(currentBook);
+
+                context.SaveChanges();
+            }        
+        }
+
+        public void AddBookToWishList(Book book, int? wishListId)
+        {
+            using (var context = new BookReaderDbContext())
+            {
+                var wishList = context.WishLists.FirstOrDefault(w => w.Id == wishListId);
+                var currentBook = context.Books.Include(b=>b.Authors).FirstOrDefault(b => b.Id == book.Id);
+                wishList.Books.Add(currentBook);                              
+
+                context.SaveChanges();
+            }
+        }
     }
 }
 

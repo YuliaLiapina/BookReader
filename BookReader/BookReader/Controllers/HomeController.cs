@@ -32,14 +32,10 @@ namespace BookReader.Controllers
             var authorsModel = _authorService.GetAllAuthors();
             var authors = _mapper.Map <IList<AuthorViewModel>>(authorsModel);
             
-            var booksSorted = books.OrderBy(b => b.Name).ToList();
-            var authorsSorted = authors.OrderBy(a => a.FirstName).ToList();
-            var genresSorted = genres.OrderBy(g => g.Name).ToList();
-
             var model = new StartPageIndexViewModel();
-            model.Books = booksSorted;
-            model.Genres = genresSorted;
-            model.Authors = authorsSorted;
+            model.Books = books;
+            model.Genres = genres;
+            model.Authors = authors;
 
             return View(model);
         }

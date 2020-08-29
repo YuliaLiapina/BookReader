@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Autofac;
+﻿using Autofac;
 using Autofac.Integration.Mvc;
-using BookReader.Data;
 using BookReader.Data.Interfaces;
 using BookReader.Data.Repositories;
-using BookReaderManager.Business;
 using BookReaderManager.Business.Interfaces;
 using BookReaderManager.Business.Services;
+using System.Web.Mvc;
 
 namespace BookReader.Autofac
 {
@@ -33,6 +27,9 @@ namespace BookReader.Autofac
 
             builder.RegisterType<AuthorRepository>().As<IAuthorRepository>();
             builder.RegisterType<AuthorService>().As<IAuthorService>();
+
+            builder.RegisterType<WishListRepository>().As<IWishListRepository>();
+            builder.RegisterType<WishListService>().As<IWishListService>();
 
             builder.RegisterModule<MapperAutofacModul>();
 

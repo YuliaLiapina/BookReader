@@ -10,5 +10,6 @@ namespace BookReader.Data.Interfaces
         void DeleteAuthor(int? id);
         Author GetAuthorById(int? id);
         void UpdateAuthor(Author author);
+        Author GetAuthorByName(Author author);
     }
 }

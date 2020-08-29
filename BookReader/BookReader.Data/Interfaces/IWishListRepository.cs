@@ -10,5 +10,8 @@ namespace BookReader.Data.Interfaces
         void DeleteWishList(int? id);
         WishList GetWishListById(int? id);
         void UpdateWishList(WishList wishList);
+        IList<WishList> GetWishListsByUserId(string id);
+        void DeleteBookFromWishList(Book book, int? wishListId);
+        void AddBookToWishList(Book book, int? wishListId);
     }
 }

@@ -19,6 +19,7 @@ namespace BookReader.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+
         
         public AccountController()
         {
@@ -171,7 +172,7 @@ namespace BookReader.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
-
+                
                 user.RegistrationDate = DateTime.Now;
 
                 var ctx = new BookReaderDbContext();
@@ -179,15 +180,18 @@ namespace BookReader.Controllers
                 var roleMngr = new RoleManager<IdentityRole>(roleStore);
                 var role=roleMngr.Roles.FirstOrDefault(x => x.Name == "User");
 
-                if (role != null)
-                {
-                    this.UserManager.AddToRole(user.Id, role.Name);
-                }
+                //var defaultWishList = ctx.WishLists.FirstOrDefault(w => w.Name == "Без названия");
+                //user.WishLists.Add(defaultWishList);
+
                 //var user = new ApplicationUser { UserName = model.Email, Email = model.Email};
                 
                 //var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    if (role != null)
+                    {
+                        this.UserManager.AddToRole(user.Id, role.Name);
+                    }
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link

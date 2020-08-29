@@ -58,6 +58,14 @@ namespace BookReader.Data.Repositories
                 context.SaveChanges();
             }
         }
+        public Author GetAuthorByName(Author author)
+        {
+            using (var context = new BookReaderDbContext())
+            {
+                var currentAuthor = context.Authors.FirstOrDefault(a => a.FirstName == author.FirstName && a.LastName==author.LastName);
+                return currentAuthor;
+            }
+        }
     }
 }
 

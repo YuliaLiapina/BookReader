@@ -4,6 +4,7 @@ using BookReader.Data.Models;
 using BookReaderManager.Business.Interfaces;
 using BookReaderManager.Business.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BookReaderManager.Business.Services
 {
@@ -20,8 +21,13 @@ namespace BookReaderManager.Business.Services
 
         public void AddAuthor(AuthorModel author)
         {
-            var mappedAuthor = _mapper.Map<Author>(author);
-            _authorRepository.AddAuthor(mappedAuthor);
+            var currentAuthor = _mapper.Map<Author>(author);
+            var authorToCheck = _authorRepository.GetAuthorByName(currentAuthor);
+
+            if (authorToCheck == null)
+            {
+                _authorRepository.AddAuthor(authorToCheck);
+            }
         }
 
         public void DeleteAuthor(int? id)
@@ -33,8 +39,9 @@ namespace BookReaderManager.Business.Services
         {
             var authors = _authorRepository.GetAllAuthors();
             var authorsModel = _mapper.Map<IList<AuthorModel>>(authors);
+            var authorsSorted = authorsModel.OrderBy(a => a.FirstName).ToList();
 
-            return authorsModel;
+            return authorsSorted;
         }
 
         public AuthorModel GetAuthorById(int? id)

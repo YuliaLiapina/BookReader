@@ -10,5 +10,6 @@ namespace BookReader.Data.Interfaces
         void DeleteGenre(int? id);
         Genre GetGenreById(int? id);
         void UpdateGenre(Genre genre);
+        Genre GetGenreByName(Genre genre);
     }
 }
