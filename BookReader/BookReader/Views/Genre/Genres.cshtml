@@ -4,53 +4,55 @@
     ViewBag.Title = "Genres";
 }
 
+<div class="genres-info">
+    <p><a class="btn btn-default" href="/Genre/Create">Добавить новый жанр &raquo;</a></p>
 
-@Html.ActionLink("Добавить жанр", "Create")
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Название
-            </th>
-            <th>
-                Книги 
-            </th>
-            <th>
-                Удалить
-            </th>
-            <th>
-                Редактировать
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var genre in Model.Genres)
-        {
-
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @genre.Name
-                </td>
-                <td>
-                    @foreach (var book in genre.Books)
-                    {
-                        <p> @book.Name </p>
-                        foreach (var author in book.Authors)
-                        {
-                            <p>@author.FirstName &nbsp @author.LastName</p>
-                        }
-
-                    }
-                </td>
-                <td>
-                    @Html.ActionLink("Удалить", "Delete", new { id = genre.Id })
-                </td>
-                <td>
-                    <a href="/Genre/Edit/@genre.Id">Редактировать</a>
-                </td>
+                <th>
+                    Название
+                </th>
+                <th>
+                    Книги
+                </th>
+                <th>
+                    Удалить
+                </th>
+                <th>
+                    Редактировать
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var genre in Model.Genres)
+            {
+
+                <tr>
+                    <td>
+                        @genre.Name
+                    </td>
+                    <td>
+                        @foreach (var book in genre.Books)
+                        {
+                            <p> @book.Name </p>
+                            foreach (var author in book.Authors)
+                            {
+                                <p>@author.FirstName &nbsp @author.LastName</p>
+                            }
+
+                        }
+                    </td>
+                    <td>
+                        <p><a class="btn btn-default" href="/Genre/Delete/@genre.Id">Удалить &raquo;</a></p>
+                        @*@Html.ActionLink("Удалить", "Delete", new { id = genre.Id })*@
+                    </td>
+                    <td>
+                        <p><a class="btn btn-default" href="/Genre/Edit/@genre.Id">Редактировать &raquo;</a></p>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 

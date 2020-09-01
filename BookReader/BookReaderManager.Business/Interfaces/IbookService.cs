@@ -11,8 +11,9 @@ namespace BookReaderManager.Business.Interfaces
         void DeleteBook(int? id);
         BookModel GetBookById(int? id);
         void UpdateBook(BookModel book);
-        string GetBookBody(BookModel book);
+        List<string> GetBookBody(BookModel book);
         BookModel AddNewGenresAndAuthors(BookModel book, IList<int> genresIds, IList<int> authorsIds);
         BookModel AddLoadedFiles(BookModel book, IEnumerable<HttpPostedFileBase> uploads, string localPath);
+        IList<BookModel> GetBooksByName(string name);
     }
 }

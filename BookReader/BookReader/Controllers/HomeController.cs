@@ -24,7 +24,7 @@ namespace BookReader.Controllers
         public ActionResult Index()
         {
             var booksModel = _bookService.GetAllBooks();
-            var books = _mapper.Map<IList<BookViewModel>>(booksModel);
+            var books = _mapper.Map<IList<BookViewModel>>(booksModel);//маппер
 
             var genresModel = _genreService.GetAllGenres();
             var genres = _mapper.Map<IList<GenreViewModel>>(genresModel);

@@ -3,46 +3,51 @@
     ViewBag.Title = "Authors";
 }
 
-@Html.ActionLink("Добавить автора", "Create")
+    <div class="authors-info">
+        <div>
+            <p><a class="btn btn-default" href="/Admin/AdminPanel">Назад &raquo;</a></p>
+        </div>
+        <p><a class="btn btn-default" href="/Author/Create">Добавить нового автора &raquo;</a></p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Имя Фамилия
-            </th>
-            <th>
-                Книги автора
-            </th>
-            <th>
-                Удалить
-            </th>
-            <th>
-                Редактировать
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var author in Model.Authors)
-        {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Имя Фамилия
+                    </th>
+                    <th>
+                        Книги автора
+                    </th>
+                    <th>
+                        Удалить
+                    </th>
+                    <th>
+                        Редактировать
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var author in Model.Authors)
+                {
 
-            <tr>
-                <td>
-                    @author.FirstName @author.LastName
-                </td>
-                <td>
-                    @foreach (var book in author.Books)
-                    {
-                        <p>@book.Name</p>
-                    }
-                </td>
-                <td>
-                    @Html.ActionLink("Удалить", "Delete", new { id = author.Id })
-                </td>
-                <td>
-                    <a href="/Author/Edit/@author.Id">Редактировать</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                    <tr>
+                        <td>
+                            @author.FirstName @author.LastName
+                        </td>
+                        <td>
+                            @foreach (var book in author.Books)
+                            {
+                                <p>@book.Name</p>
+                            }
+                        </td>
+                        <td>
+                            <p><a class="btn btn-default" href="/Author/Delete">Удалить автора &raquo;</a></p>
+                        </td>
+                        <td>
+                            <p><a class="btn btn-default" href="/Author/Edit">Редактировать &raquo;</a></p>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>

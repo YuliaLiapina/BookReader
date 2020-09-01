@@ -15,7 +15,7 @@
                 <dd>
                     <p>
                         <img src="@book.Cover" /> <br />
-                        <a href="/Book/Reed/@book.Id">@book.Name</a>   @Html.ActionLink("Удалить из закладок", "DeleteBookFromWishList", "WishList", new { bookId = book.Id, wishListId = Model.Id }, null)
+                        <a href="/Book/Reed/@book.Id">@book.Name</a>   @Html.ActionLink("Удалить из избранного", "DeleteBookFromWishList", "WishList", new { bookId = book.Id, wishListId = Model.Id }, null)
                     </p>
                 </dd>
             }

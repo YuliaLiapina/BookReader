@@ -85,7 +85,7 @@ namespace BookReader.Data.Repositories
             using (var context = new BookReaderDbContext())
             {
                 var wishList = context.WishLists.FirstOrDefault(w => w.Id == wishListId);
-                var currentBook = context.Books.Include(b=>b.Authors).FirstOrDefault(b => b.Id == book.Id);
+                var currentBook = context.Books.FirstOrDefault(b => b.Id == book.Id);
                 wishList.Books.Add(currentBook);                              
 
                 context.SaveChanges();

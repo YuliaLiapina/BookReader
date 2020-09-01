@@ -4,57 +4,61 @@
 }
 
 @*@Html.ActionLink("Добавить новую книгу", "Create")*@
-    <p><a class="btn btn-default" href="/Book/Create">Добавить новую книгу &raquo;</a></p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Название
-            </th>
-            <th>
-                Авторы
-            </th>
-            <th>
-                Жанры
-            </th>
-            <th>
-                Удалить книгу
-            </th>
-            <th>
-                Редактировать книгу
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var book in Model.Books)
-        {
 
-            <tr>
-                <td>
-                    <img src="@book.Cover" width="100" height="100" /> @Html.ActionLink($"{book.Name}", "Details", new { id = book.Id })
-                </td>
-                <td>
-                    @foreach (var writer in book.Authors)
-                    {
-                        <p> @writer.FirstName &nbsp @writer.LastName</p>
-                    }
-                </td>
-                <td>
-                    @foreach (var genre in book.Genres)
-                    {
-                        <p>@genre.Name</p>
-                    }
-                </td>
-                <td>
-                    <p><a class="btn btn-default" href="/Book/Delete/@book.Id">Удалить книгу &raquo;</a></p>
-                </td>
-                <td>
-                    <p><a class="btn btn-default" href="/Book/Edit/@book.Id">Редактировать книгу&raquo;</a></p>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="books-info">
+        <p><a class="btn btn-default" href="/Book/Create">Добавить новую книгу &raquo;</a></p>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Название
+                    </th>
+                    <th>
+                        Авторы
+                    </th>
+                    <th>
+                        Жанры
+                    </th>
+                    <th>
+                        Удалить книгу
+                    </th>
+                    <th>
+                        Редактировать книгу
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var book in Model.Books)
+                {
+
+                    <tr>
+                        <td>
+                            <img src="@book.Cover" width="150" height="200" /> @Html.ActionLink($"{book.Name}", "Details", new { id = book.Id })
+                        </td>
+                        <td>
+                            @foreach (var writer in book.Authors)
+                            {
+                                <p> @writer.FirstName &nbsp @writer.LastName</p>
+                            }
+                        </td>
+                        <td>
+                            @foreach (var genre in book.Genres)
+                            {
+                                <p>@genre.Name</p>
+                            }
+                        </td>
+                        <td>
+                            <p><a class="btn btn-default" href="/Book/Delete/@book.Id">Удалить книгу &raquo;</a></p>
+                        </td>
+                        <td>
+                            <p><a class="btn btn-default" href="/Book/Edit/@book.Id">Редактировать книгу&raquo;</a></p>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 
 

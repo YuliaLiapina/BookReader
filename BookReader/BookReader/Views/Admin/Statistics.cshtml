@@ -3,16 +3,12 @@
     ViewBag.Title = "Statistics";
 }
 
-<html>
-<head>
-    <title>Статистика</title>
-</head>
-<body>
-    <p>
-        Статистика по зарегистрированным пользователям
-    </p>
+
+    <h2> Статистика по зарегистрированным пользователям</h2>
+
     <p><img src="@Url.Action("ChartArrayBasic", "Admin")" /> </p>
-</body>
-</html>
 
 
+    <div>
+        @Html.ActionLink("Назад", "AdminPanel")
+    </div>

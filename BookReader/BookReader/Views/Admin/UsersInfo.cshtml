@@ -4,39 +4,22 @@
     ViewBag.Title = "UsersInfo";
 }
 
-<h2>UsersInfo</h2>
+<h2>Информация о пользователях</h2>
+<ol>
 
-@foreach (var user in Model.Users)
-{
-    <ol>
+    @foreach (var user in Model.Users)
+    {
         <li>
-            <p>Login: &nbsp @user.UserName</p>
-            <p>Age: &nbsp @user.Age</p>
-            <p>Email: &nbsp @user.Email</p>
-            <p>Phone number: &nbsp @user.PhoneNumber</p>
-            @foreach (var wishList in user.WishLists)
-            {
-                <p>
-                    WishLists:
-                    <ol>
-                        <li>
-                            wishList
-                        </li>
-                    </ol>
-                </p>
-
-            }
-            @foreach (var book in user.Books)
-            {
-                <p>
-                    Books:
-                    <ol>
-                        <li>
-                            book
-                        </li>
-                    </ol>
-                </p>
-            }
+            <p>Имя пользователя: &nbsp @user.UserName</p>
+            <p>Возраст: &nbsp @user.Age</p>
+            <p>Почта: &nbsp @user.Email</p>
+            <p>Телефон: &nbsp @user.PhoneNumber</p>
+            <p>Дата регистрации: &nbsp @user.RegistrationDate</p>
         </li>
-    </ol>
- }
+        <hr />
+    }
+
+</ol>
+<div>
+    @Html.ActionLink("Назад", "AdminPanel")
+</div>

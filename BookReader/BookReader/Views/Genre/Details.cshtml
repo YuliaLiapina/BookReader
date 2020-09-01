@@ -4,25 +4,17 @@
     ViewBag.Title = "Details";
 }
 
+<h1>Все книги жанра @Model.Name</h1>
+
 <div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Books)
-        </dt>
-
-        <dd>
-            @foreach (var book in Model.Books)
-            {
+    <div class="div-book">
+        @foreach (var book in Model.Books)
+        {
+            <span class="bk">
+                <img src="@book.Cover" width="150" , height="200" />
                 <p><a href="/Book/Details/@book.Id">@book.Name</a></p>
-            }
-        </dd>
-    </dl>
+            </span>
+        }
+    </div>
 </div>

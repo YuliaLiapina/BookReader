@@ -1,72 +1,94 @@
-﻿@model BookReader.Models.BookViewModel
+﻿@model BookReader.Models.Book.ReedBookViewModel
+@*@model PagedList.IPagedList<string>*@
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Reed";
 }
-<div class="book-info">
-    <div class="image">
-        <img src="@Model.Cover" width="200" height="300" />
+    <div class=" wrapper">
+        <div class="book-info">
+            <div class="image">
+                <img src="@Model.Cover" width="200" height="300" />
+            </div>
+            <div class="name-authors-genres">
+                <p class="title">
+                    <h2>@Model.Name</h2>
+                </p>
+                @foreach (var author in Model.Authors)
+                {
+                    <p>@author.FirstName @author.LastName</p>
+                }
+
+                @foreach (var genre in Model.Genres)
+                {
+                    <p>@genre.Name</p>
+                }
+
+                <p></p>
+                <hr />
+                <p></p>
+                <p class="annotation">@Model.Annotation</p>
+                <hr />
+                <br />
+            </div>
+        </div>
+        <div class="book-body">
+            @foreach (var item in Model.Pages)
+            {
+                @Html.Raw(item)
+            }
+        </div>
+        <br />
+
+        <div>
+            @Html.PagedListPager(Model.Pages, page => Url.Action("Reed", new { page }))
+        </div>
+
     </div>
-    <div class="name-authors-genres">
-        <p class="title">
-            <h2>@Model.Name</h2>
-        </p>
-        @foreach (var author in Model.Authors)
-        {
-            <p>@author.FirstName @author.LastName</p>
+    @*<div class="book-body">
+            @Html.Raw(Model.Body)
+        </div>*@
+
+
+    <style>
+        .name-authors-genres, .image {
+            float: left;
+            margin: 0 10px;
+            margin-top: 20px;
         }
 
-        @foreach (var genre in Model.Genres)
-        {
-            <p>@genre.Name</p>
+        .name-authors-genres {
+            width: 70%;
         }
 
-        <p></p>
-        <hr />
-        <p></p>
-        <p class="annotation">@Model.Annotation</p>
-    </div>
-</div>
-<div class="book-body">
-    @Html.Raw(Model.Body)
-</div>
+        .title {
+            margin: 1em 0 0.5em 0;
+            color: #343434;
+            font-size: 22px;
+            line-height: 40px;
+            font-weight: normal;
+            text-transform: uppercase;
+            font-family: 'Orienta', sans-serif;
+            letter-spacing: 1px;
+            font-style: italic;
+        }
 
+        .annotation {
+            text-align: justify;
+            width: 400px;
+        }
 
-<style>
-    .name-authors-genres, .image {
-        float: left;
-        margin: 0 10px;
-        margin-top: 20px;
-    }
-    .name-authors-genres{
-        width:70%;
-    }
-    .title {
-        margin: 1em 0 0.5em 0;
-        color: #343434;
-        font-size: 22px;
-        line-height: 40px;
-        font-weight: normal;
-        text-transform: uppercase;
-        font-family: 'Orienta', sans-serif;
-        letter-spacing: 1px;
-        font-style: italic;
-    }
+        .hr {
+            border: none; /* Убираем границу */
+            background-color: grey; /* Цвет линии */
+            color: red; /* Цвет линии для IE6-7 */
+            height: 2px; /* Толщина линии */
+            width: 50%;
+        }
 
-    .annotation {
-        text-align: justify;
-        width: 400px;
-    }
-
-    .hr {
-        border: none; /* Убираем границу */
-        background-color: grey; /* Цвет линии */
-        color: red; /* Цвет линии для IE6-7 */
-        height: 2px; /* Толщина линии */
-        width:50%;
-    }
-    .book-body{
-        text-align:justify;
-    }
-</style>
+        .book-body {
+            width:70%;
+            text-align: justify;
+        }
+    </style>
 

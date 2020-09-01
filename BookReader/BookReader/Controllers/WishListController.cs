@@ -27,7 +27,7 @@ namespace BookReader.Controllers
         }
 
         // GET: WishList
-                    
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -64,17 +64,23 @@ namespace BookReader.Controllers
 
             return View(model);
         }
+                
+        //public ActionResult AddBookToWishList(int? bookId, int? wishListId)        
+        //{
+        //    var id = User.Identity.GetUserId();
+        //    var wishLists = _wishListService.GetWishListsByUserId(id);
+        //    var currentWish = wishLists.FirstOrDefault(w => w.Id == wishListId);
 
-       
-        public ActionResult AddBookToWishList(int? bookId, int? wishListId)        
-        {  
-          _wishListService.AddBookToWishList(bookId, wishListId);
+        //    if(!currentWish.Books.Any(b=>b.Id==bookId))
+        //    {
+        //        _wishListService.AddBookToWishList(bookId, wishListId);
+        //        return RedirectToAction("Details", "Book", new { id = bookId });
+        //    }
 
-            return RedirectToAction("Details", "Book", new { id = bookId });
-        }
+        //    return 
+        //}
 
-
-        //Проверить!!!
+               
         public ActionResult DeleteBookFromWishList(int? bookId, int? wishListId)
         {
             _wishListService.DeleteBookFromWishList(bookId, wishListId);
@@ -97,6 +103,12 @@ namespace BookReader.Controllers
             _wishListService.UpdateWishList(wishListModel);
 
             return RedirectToAction("Details", new { id = wishList.Id });
+        }
+        public ActionResult Delete(int? id)
+        {
+            _wishListService.DeleteWishList(id);
+
+            return RedirectToAction("WishLists");
         }
     }
 }

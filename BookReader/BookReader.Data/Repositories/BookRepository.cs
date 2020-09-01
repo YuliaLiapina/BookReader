@@ -91,5 +91,15 @@ namespace BookReader.Data.Repositories
                 context.SaveChanges();
             }
         }
+
+        //public Book GetBookByName(string name)
+        //{
+        //    using(var context = new BookReaderDbContext())
+        //    {
+        //        var book = context.Books.FirstOrDefault(b => b.Name == name);
+
+        //        return book;
+        //    }
+        //}
     }
 }

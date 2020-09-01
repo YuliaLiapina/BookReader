@@ -3,31 +3,14 @@
 @{
     ViewBag.Title = "Details";
 }
-
+    <h2>
+        Все книги автора @Model.FirstName @Model.LastName
+    </h2>
 <div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-
-        <dd>
+   
             @foreach (var book in Model.Books)
             {
+                <img src="@book.Cover" width="150", height="200"/>
                 <p><a href="/Book/Details/@book.Id">@book.Name</a></p>
             }
-        </dd>
-    </dl>
 </div>

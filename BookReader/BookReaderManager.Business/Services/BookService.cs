@@ -56,19 +56,44 @@ namespace BookReaderManager.Business.Services
             var currentBook = _mapper.Map<Book>(book);
             _bookRepository.UpdateBook(currentBook);
         }
-
-        public string GetBookBody(BookModel book)
+        //public List<string> GetBookBody(bookfilePath, pageNumber, pageSize = 80)
+        public List<string> GetBookBody(BookModel book)
         {
+            //StreamReader streamReader = new StreamReader($"{localPath}/{book.Body}", Encoding.UTF8);
+            //  string bookBody = streamReader.ReadToEnd();
+            // bookBody = bookBody.Replace(Environment.NewLine, "<p>");
+            // return bookBody;
+
             string localPath = AppDomain.CurrentDomain.BaseDirectory;
+            var strinBuilder = new StringBuilder();
+            int count = 0;
+            var listLines = new List<string>();
+            string lineResult;
 
-            StreamReader streamReader = new StreamReader($"{localPath}/{book.Body}", Encoding.UTF8);
+            var lines = File.ReadAllLines($"{localPath}/{book.Body}");
 
-            string bookBody = streamReader.ReadToEnd();
-            bookBody = bookBody.Replace(Environment.NewLine, "<p>");
+            //lines.Skip(page-1 * pageSize).Take(pageSize);
 
-            return bookBody;
+
+            foreach (var line in lines)
+            {
+                if (count < 80)
+                {
+                    strinBuilder.Append(line);
+                    strinBuilder.Append("<p>");
+                    count++;
+                }
+                else
+                {
+                    lineResult = strinBuilder.ToString();
+                    listLines.Add(lineResult);
+                    count = 0;
+                    strinBuilder.Clear();
+                }
+            }
+            return listLines;
         }
-
+        
         public BookModel AddNewGenresAndAuthors(BookModel book, IList<int> genresIds, IList<int> authorsIds)
         {
             if (genresIds != null)
@@ -111,6 +136,26 @@ namespace BookReaderManager.Business.Services
                 }
             }
             return book;
+        }
+
+        public IList<BookModel> GetBooksByName(string name)
+        {
+            var books = _bookRepository.GetAllBooks();
+            List<Book> booksResult = new List<Book>();
+
+            foreach(var book in books)
+            {
+                if(book.Name.Contains(name))
+                {
+                    booksResult.Add(book);
+                }
+            }
+            //var book = books.All(b => b.Name.Contains(name));
+            var booksModelResult = _mapper.Map<IList<BookModel>>(booksResult);
+
+            //var book = _bookRepository.GetBookByName(name);
+        
+            return booksModelResult;
         }
     }
 }

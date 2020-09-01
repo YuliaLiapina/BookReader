@@ -78,6 +78,9 @@ namespace BookReader.Autofac
                 cfg.CreateMap<BookViewModel, BookDetailsViewModel>();
                 cfg.CreateMap<BookDetailsViewModel, BookViewModel>();
 
+                cfg.CreateMap<BookModel, ReedBookViewModel>();
+                cfg.CreateMap<ReedBookViewModel, BookModel>();
+
             })).AsSelf().SingleInstance();
 
             builder.Register(c =>

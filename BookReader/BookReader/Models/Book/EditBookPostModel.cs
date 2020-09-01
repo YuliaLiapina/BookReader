@@ -5,6 +5,7 @@ namespace BookReader.Models
 {
     public class EditBookPostModel
     {
+        
         public BookViewModel Book { get; set; }
         public IList<int> GenresIds { get; set; }
         public IList<int> AuthorsIds { get; set; }

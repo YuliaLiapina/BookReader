@@ -13,6 +13,6 @@
 
     foreach (var wishList in Model.wishLists)
     {
-        <p><a href="/WishList/Details/@wishList.Id">@wishList.Name &raquo;</a></p>
+        <p><a href="/WishList/Details/@wishList.Id">@wishList.Name &raquo;</a> <a class="btn btn-default" href="/WishList/Delete/@wishList.Id">Удалить список желаний &raquo;</a></p>
     }
 }

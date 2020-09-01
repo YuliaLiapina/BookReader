@@ -14,5 +14,6 @@ namespace BookReader.Data.Interfaces
         void DeleteBook(int? id);
         Book GetBookById(int? id);
         void UpdateBook(Book book);
+        //Book GetBookByName(string name);
     }
 }

@@ -11,6 +11,7 @@ using System.Web.UI.DataVisualization.Charting;
 
 namespace BookReader.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class AdminController : Controller
     {
         private readonly IBookService _bookService;

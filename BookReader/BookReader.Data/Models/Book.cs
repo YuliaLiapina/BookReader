@@ -19,11 +19,8 @@ namespace BookReader.Data.Models
         public string Body { get; set; }
 
         public ICollection<ApplicationUser> Users { get; set; }
-
         public ICollection<Author> Authors { get; set; }
-
         public ICollection<Genre> Genres { get; set; }
-
         public ICollection<WishList> WishLists { get; set; }
     }
 }
