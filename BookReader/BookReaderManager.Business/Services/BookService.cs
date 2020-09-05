@@ -29,7 +29,7 @@ namespace BookReaderManager.Business.Services
             _bookRepository.AddBook(mappedBook);
         }
 
-        public void DeleteBook(int? id)
+        public void DeleteBook(int id)
         {
             _bookRepository.DeleteBook(id);
         }
@@ -43,7 +43,7 @@ namespace BookReaderManager.Business.Services
             return booksSorted;
         }
 
-        public BookModel GetBookById(int? id)
+        public BookModel GetBookById(int id)
         {
             var book = _bookRepository.GetBookById(id);
             var bookModel = _mapper.Map<BookModel>(book);
@@ -56,28 +56,23 @@ namespace BookReaderManager.Business.Services
             var currentBook = _mapper.Map<Book>(book);
             _bookRepository.UpdateBook(currentBook);
         }
-        //public List<string> GetBookBody(bookfilePath, pageNumber, pageSize = 80)
-        public List<string> GetBookBody(BookModel book)
-        {
-            //StreamReader streamReader = new StreamReader($"{localPath}/{book.Body}", Encoding.UTF8);
-            //  string bookBody = streamReader.ReadToEnd();
-            // bookBody = bookBody.Replace(Environment.NewLine, "<p>");
-            // return bookBody;
 
+        public List<string> GetBookBody(string bookfilePath)
+        {
             string localPath = AppDomain.CurrentDomain.BaseDirectory;
             var strinBuilder = new StringBuilder();
             int count = 0;
             var listLines = new List<string>();
             string lineResult;
+            int linesOnPage = 50;
 
-            var lines = File.ReadAllLines($"{localPath}/{book.Body}");
+            var lines = File.ReadAllLines($"{localPath}/{bookfilePath}");
 
-            //lines.Skip(page-1 * pageSize).Take(pageSize);
-
+            // var currentLines = lines.Skip(pageNumber - 1 * pageSize).Take(pageSize);
 
             foreach (var line in lines)
             {
-                if (count < 80)
+                if (count < linesOnPage)
                 {
                     strinBuilder.Append(line);
                     strinBuilder.Append("<p>");
@@ -91,9 +86,10 @@ namespace BookReaderManager.Business.Services
                     strinBuilder.Clear();
                 }
             }
+
             return listLines;
         }
-        
+
         public BookModel AddNewGenresAndAuthors(BookModel book, IList<int> genresIds, IList<int> authorsIds)
         {
             if (genresIds != null)
@@ -116,13 +112,15 @@ namespace BookReaderManager.Business.Services
 
         public BookModel AddLoadedFiles(BookModel book, IEnumerable<HttpPostedFileBase> uploads, string localPath)
         {
-            if (uploads != null)
+            foreach (var file in uploads)
             {
-                foreach (var file in uploads)
+                if (file != null)
                 {
                     string fileName = Path.GetFileName(file.FileName);
+                 
                     var pathBody = localPath + fileName;
                     file.SaveAs(pathBody);
+
                     var textFile = file.ContentType;
 
                     if (textFile == "text/plain")
@@ -135,6 +133,7 @@ namespace BookReaderManager.Business.Services
                     }
                 }
             }
+
             return book;
         }
 
@@ -143,18 +142,16 @@ namespace BookReaderManager.Business.Services
             var books = _bookRepository.GetAllBooks();
             List<Book> booksResult = new List<Book>();
 
-            foreach(var book in books)
+            foreach (var book in books)
             {
-                if(book.Name.Contains(name))
+                if (book.Name.ToLower().Contains(name.ToLower()))
                 {
                     booksResult.Add(book);
                 }
             }
-            //var book = books.All(b => b.Name.Contains(name));
+
             var booksModelResult = _mapper.Map<IList<BookModel>>(booksResult);
 
-            //var book = _bookRepository.GetBookByName(name);
-        
             return booksModelResult;
         }
     }

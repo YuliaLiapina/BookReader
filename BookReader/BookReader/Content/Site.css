@@ -23,17 +23,6 @@ textarea {
     max-width: 280px;
 }
 
-/*footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    padding: 2px;
-    color: black;
-    width: 100%;
-    height: 40px;
-    text-align: center;
-}*/
-
 .element {
     width: 150px;
     display: inline-block;
@@ -71,7 +60,6 @@ textarea {
     padding-left:40px;
 }
 #image-book{
-    /*align-content:center;*/
     padding-bottom:20px;
 }
 .books-genres-authors {
@@ -79,7 +67,7 @@ textarea {
     overflow: hidden;
     padding-bottom: 80px;
 }
-.books-info, .genres-info, .authors-info{
+.books-info, .genres-info, .authors-info, .reed-book, .back-button{
     margin-top:15px;
 }
 #model-name{
@@ -105,6 +93,100 @@ body, html{
 .container.body-content{
     min-height:100%;
 }
-.wrapper{
-    padding-bottom:80px;
+.wrapper, .authors-info {
+    padding-bottom: 80px;
+}
+.search-result{
+    display:inline-block;
+    padding-right:15px;
+    padding-bottom:15px;
+}
+.books-info, .genres-info, .books-in-genre, .books-author, .edit-content, .create-book-content, .users-info, .search-results {
+    padding-bottom: 80px;
+}
+.btn-group{
+    margin-top:10px;
+    padding-left:10px;
+}
+.upload-files{
+    margin-left:50px;
+    padding-top:30px;
+}
+.loading-files {
+    margin-left: 80px;
+    padding-top: 30px;
+}
+.genres-authors-create {
+    margin-left: 70px;
+}
+.create-button-save {
+    padding-left: 90px;
+}
+.name-authors-genres, .image {
+    float: left;
+    margin: 0 10px;
+    margin-top: 20px;
+}
+
+.title {
+    margin: 1em 0 0.5em 0;
+    color: #343434;
+    font-size: 22px;
+    line-height: 40px;
+    font-weight: normal;
+    text-transform: uppercase;
+    font-family: 'Orienta', sans-serif;
+    letter-spacing: 1px;
+    font-style: italic;
+}
+
+.annotation {
+    text-align: justify;
+    width: 800px;
+}
+
+.hr {
+    border: none; 
+    background-color: grey;
+    color: red; 
+    height: 2px;
+}
+
+.body {
+    text-align: justify;
+}
+/*.form-group {
+    margin: 20px;
+    padding: 20px;
+}*/
+.name-authors-genres, .image {
+    float: left;
+    margin: 0 10px;
+    margin-top: 20px;
+}
+
+.name-authors-genres {
+    width: 70%;
+}
+
+.title {
+    margin: 1em 0 0.5em 0;
+    color: #343434;
+    font-size: 22px;
+    line-height: 40px;
+    font-weight: normal;
+    text-transform: uppercase;
+    font-family: 'Orienta', sans-serif;
+    letter-spacing: 1px;
+    font-style: italic;
+}
+
+.annotation {
+    text-align: justify;
+    width: 800px;
+}
+
+.book-body {
+    width: 90%;
+    text-align: justify;
 }

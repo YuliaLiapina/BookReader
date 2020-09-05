@@ -1,8 +1,6 @@
 ﻿using BookReader.Data.Interfaces;
 using BookReader.Data.Models;
-using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 

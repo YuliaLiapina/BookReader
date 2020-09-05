@@ -1,13 +1,13 @@
-﻿using BookReaderManager.Business.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BookReader.Models
 {
     public class EditGenrePostModel
     {
-        public int? Id { get; set; }
-        public string Name { get; set; }
+        public int Id { get; set; }
 
-        public IList<BookViewModel> Books { get; set; }
+       [Required (ErrorMessage ="Поле должно быть установлено")]
+        public string Name { get; set; }
     }
 }

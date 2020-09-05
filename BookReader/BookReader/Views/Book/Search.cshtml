@@ -2,27 +2,26 @@
 @{
     ViewBag.Title = "Search";
 }
-
-<h2>Результаты поиска</h2>
-
-@if (Model.Books.Count == 0)
-{
-    <h3>Ничего не найдено</h3>
-}
-else
-{
-    foreach (var book in Model.Books)
-    {
-        <tr>
-            <td>
-                <img src="@book.Cover" width="150" height="200" /> <br/>
-                @Html.ActionLink($"{book.Name}", "Details", new { id = book.Id })
-            </td>
-        </tr>
-    }
-}
-
-<div>
-    <p><a class="btn btn-default" href="/Index/Home">Назад &raquo;</a></p>
-</div>
-
+    <div class="search-results">
+        <h2>Результаты поиска</h2>
+        <div>
+            @if (Model.Books.Count == 0)
+            {
+                <h3>Ничего не найдено</h3>
+            }
+            else
+            {
+                foreach (var book in Model.Books)
+                {
+                    <span class="search-result">
+                        <img src="@book.Cover" width="150" height="200" />
+                        <br />
+                        @Html.ActionLink($"{book.Name}", "Details", new { id = book.Id })
+                    </span>
+                }
+            }
+        </div>
+        <div>
+            <p><a class="btn btn-default" href="/Home/Index">Назад &raquo;</a></p>
+        </div>
+    </div>

@@ -17,7 +17,7 @@ namespace BookReader.Data.Repositories
             }
         }
 
-        public void DeleteAuthor(int? id)
+        public void DeleteAuthor(int id)
         {
             using (var context = new BookReaderDbContext())
             {
@@ -37,7 +37,7 @@ namespace BookReader.Data.Repositories
             }
         }
 
-        public Author GetAuthorById(int? id)
+        public Author GetAuthorById(int id)
         {
             using (var context = new BookReaderDbContext())
             {

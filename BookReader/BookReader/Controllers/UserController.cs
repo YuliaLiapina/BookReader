@@ -34,6 +34,7 @@ namespace BookReader.Controllers
 
             return View(userViewModel);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(EditUserPostModel user)

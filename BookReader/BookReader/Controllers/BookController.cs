@@ -5,6 +5,7 @@ using BookReaderManager.Business.Interfaces;
 using BookReaderManager.Business.Models;
 using Microsoft.AspNet.Identity;
 using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -42,7 +43,7 @@ namespace BookReader.Controllers
 
         // GET: Book/Details/5
 
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
             var book = _bookService.GetBookById(id);
             var result = _mapper.Map<BookViewModel>(book);
@@ -52,10 +53,7 @@ namespace BookReader.Controllers
             var userWishListsViewModel = _mapper.Map<IList<WishListViewModel>>(userWishLists);
 
             var model = _mapper.Map<BookDetailsViewModel>(result);
-
-            //var model = new BookDetailsViewModel();
             model.UserWishLists = userWishListsViewModel;
-
 
             return View(model);
         }
@@ -73,7 +71,7 @@ namespace BookReader.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateBookPostModel book, IEnumerable<HttpPostedFileBase> uploads)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && uploads != null&&book.AuthorsIds!=null&&book.Genres!=null)
             {
                 var pathBody = Server.MapPath("~/Content/Files/");
                 var bookModel = _mapper.Map<BookModel>(book);
@@ -86,34 +84,15 @@ namespace BookReader.Controllers
                 return View(book);
             }
 
-            //var book1 = _bookService.CheckLoadedFiles(bookModel, uploads);
-            // var bookModel = _mapper.Map<BookModel>(book);
             var model = GetCreateBookPostModel();
 
             return View("Create", model);
         }
 
         // GET: Book/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            var book = _bookService.GetBookById(id);
-            var bookViewModel = _mapper.Map<BookViewModel>(book);
-
-            var genresModel = _genreService.GetAllGenres();
-            var genresViewModel = _mapper.Map<IList<GenreViewModel>>(genresModel);
-
-            var authorsModel = _authorServise.GetAllAuthors();
-            var authorsViewModel = _mapper.Map<IList<AuthorViewModel>>(authorsModel);
-
-            var model = new EditBookPostModel
-            {
-                Genres = from genre in genresViewModel
-                         select new SelectListItem { Text = genre.Name, Value = genre.Id.ToString() },
-                Authors = from author in authorsViewModel
-                          select new SelectListItem { Text = $"{author.FirstName} {author.LastName}", Value = author.Id.ToString() }
-            };
-
-            model.Book = bookViewModel;
+            var model=GetEditBookPostModel(id);
 
             return View(model);
         }
@@ -123,17 +102,21 @@ namespace BookReader.Controllers
         [HttpPost]
         public ActionResult Edit(EditBookPostModel bookEdit, IEnumerable<HttpPostedFileBase> uploads)
         {
+            if(ModelState.IsValid)
+            {                
+                var pathBody = Server.MapPath("~/Content/Files/");
+                var bookModel = _mapper.Map<BookModel>(bookEdit.Book);
 
-            var pathBody = Server.MapPath("~/Content/Files/");
-            var bookModel = _mapper.Map<BookModel>(bookEdit.Book);
+                var bookAddFiles = _bookService.AddLoadedFiles(bookModel, uploads, pathBody);
+                var result = _bookService.AddNewGenresAndAuthors(bookAddFiles, bookEdit.GenresIds, bookEdit.AuthorsIds);
 
-            var bookAddFiles = _bookService.AddLoadedFiles(bookModel, uploads, pathBody);
+                _bookService.UpdateBook(result);
 
-            var result = _bookService.AddNewGenresAndAuthors(bookAddFiles, bookEdit.GenresIds, bookEdit.AuthorsIds);
+                return RedirectToAction("Books", "Book");
+            }
+            var model = GetEditBookPostModel(bookEdit.Id);
 
-            _bookService.UpdateBook(result);
-
-            return RedirectToAction("Index", "Home");
+            return View("Edit", model);
         }
 
         // GET: Book/Delete/5
@@ -145,29 +128,40 @@ namespace BookReader.Controllers
         }
 
         [Authorize]
-        public ActionResult Reed(int? id, int? page)
+        public ActionResult Reed(int id, int? page)
         {
             var book = _bookService.GetBookById(id);
-            var bookBody = _bookService.GetBookBody(book);
-            //HttpContext.Request.Cookies.Get("Book" + id);
-            var model = _mapper.Map<ReedBookViewModel>(book);
+            HttpCookie cookieRequest = HttpContext.Request.Cookies.Get($"Book{id}");
 
-            int pageNumber = page ?? 1;
+            if (page.HasValue||cookieRequest==null)
+            {
+                int pageNumber = page ?? 1;
 
-            var bodyPagging = bookBody.ToPagedList(pageNumber, 1);
+                var bookBody = _bookService.GetBookBody(book.Body);
 
-            model.Pages = bodyPagging;
+                var model = _mapper.Map<ReedBookViewModel>(book);
 
-            return View(model);
+                var bodyPagging = bookBody.ToPagedList(pageNumber, 1);
 
-            //var book = _bookService.GetBookById(id);          
+                model.Pages = bodyPagging;
 
-            //var test = _bookService.GetBookBody(book);
+                HttpCookie cookie = new HttpCookie($"Book{id}", $"{pageNumber}");
+                cookie.Expires = DateTime.Now.AddDays(2);
+                Response.Cookies.Add(cookie);
 
-            //int pageNumber = page ?? 1;
+                return View(model);
+            }
 
-            //var temp = test.ToPagedList(pageNumber, 1);
-            //return View(temp);
+                var getBookBody = _bookService.GetBookBody(book.Body);
+                var getModel = _mapper.Map<ReedBookViewModel>(book);
+
+                var cookiesPage = cookieRequest.Value;
+                var currentPage = int.Parse(cookiesPage);
+                var bodyPaggingCookies = getBookBody.ToPagedList(currentPage, 1);
+
+                getModel.Pages = bodyPaggingCookies;
+
+                return View(getModel);
         }
 
         public ActionResult Search(string name)
@@ -200,6 +194,30 @@ namespace BookReader.Controllers
                 Authors = from author in authorsViewModel
                           select new SelectListItem { Text = $"{author.FirstName} {author.LastName}", Value = author.Id.ToString() }
             };
+
+            return model;
+        }
+
+        private EditBookPostModel GetEditBookPostModel(int id)
+        {
+            var book = _bookService.GetBookById(id);
+            var bookPostModel = _mapper.Map<BookPostModel>(book);
+
+            var genresModel = _genreService.GetAllGenres();
+            var genresViewModel = _mapper.Map<IList<GenreViewModel>>(genresModel);
+
+            var authorsModel = _authorServise.GetAllAuthors();
+            var authorsViewModel = _mapper.Map<IList<AuthorViewModel>>(authorsModel);
+
+            var model = new EditBookPostModel
+            {
+                Genres = from genre in genresViewModel
+                         select new SelectListItem { Text = genre.Name, Value = genre.Id.ToString() },
+                Authors = from author in authorsViewModel
+                          select new SelectListItem { Text = $"{author.FirstName} {author.LastName}", Value = author.Id.ToString() }
+            };
+
+            model.Book = bookPostModel;
 
             return model;
         }

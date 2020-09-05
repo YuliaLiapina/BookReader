@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace BookReader.Models
 {

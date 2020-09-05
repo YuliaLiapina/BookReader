@@ -1,25 +1,18 @@
 ﻿using AutoMapper;
 using BookReader.Models;
 using BookReaderManager.Business.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.UI.DataVisualization.Charting;
 
 namespace BookReader.Controllers
 {
     [Authorize(Roles ="Admin")]
     public class AdminController : Controller
     {
-        private readonly IBookService _bookService;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        public AdminController(IBookService bookService, IMapper mapper, IUserService userService)
+        public AdminController(IMapper mapper, IUserService userService)
         {
-            _bookService = bookService;
             _mapper = mapper;
             _userService = userService;
         }

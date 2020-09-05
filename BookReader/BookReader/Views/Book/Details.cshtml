@@ -4,6 +4,10 @@
     ViewBag.Title = "Details";
 }
 
+<div class="back-button">
+    <p><a class="btn btn-default" href="/Home/Index">Назад &raquo;</a></p>
+</div>
+
 <div class="image">
     <img src="@Model.Cover" width="200" height="300" />
 </div>
@@ -28,66 +32,31 @@
 
     <p><a class="btn btn-default" href="/Book/Reed/@Model.Id">Читать &raquo;</a></p>
 
-    @*<div class="dropdown show">
-        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-           Добавить в закладки
-        </a>*@
-
-    @*<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a href="/WishList/Create">Создать новый список желаний &raquo;</a>
-            <a href="/WishList/AddBookToWishList">Выбрать существующий список желаний &raquo;</a>
-
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-
-            </div>
-        </div>*@
-   
-<div class="btn-group">
-    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Добавить в избранное
-    </button>
-        <div class="dropdown-menu">
+    <div class="btn-group">
+        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Добавить в избранное
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
             @foreach (var wishList in Model.UserWishLists)
             {
-                <p> @Html.ActionLink($"{@wishList.Name}", "AddBookToWishList", "WishList", new { bookId = Model.Id, wishListId = wishList.Id }, null)</p>
+                if (!wishList.Books.Any(b => b.Id == Model.Id))
+                {
+                    <li><a href='@Url.Action("AddBookToWishList", "WishList", new { bookId = Model.Id, wishListId = wishList.Id}, null)'>Добавить в «@wishList.Name»<img src="~/Content/Icons/tick.png" width="12" , height="12" /></a></li>
+
+                }
+                else
+                {
+                    <li><a href='@Url.Action("DeleteBookFromWishList", "WishList", new { bookId = Model.Id, wishListId = wishList.Id}, null)'>Удалить из «@wishList.Name»<img src="~/Content/Icons/close.png" width="10" , height="10" /></a></li>
+
+                }
             }
-            <p><a href="/WishList/Create">Создать новый список желаний</a></p>
-        </div>
-    </div>   
+            <li><hr /></li>
+            <li><a href="/WishList/Create">Создать новый список желаний</a></li>
+        </ul>
+    </div>
 </div>
 
-@*<div class="body"> @Html.Raw(Model.Body) </div>*@
 
 
-<style>
-    .name-authors-genres, .image {
-        float: left;
-        margin: 0 10px;
-        margin-top:20px;
-    }
-    .title{
-    margin: 1em 0 0.5em 0;
-    color: #343434;
-    font-size: 22px;
-    line-height: 40px;
-    font-weight: normal;
-    text-transform: uppercase;
-    font-family: 'Orienta', sans-serif;
-    letter-spacing: 1px;
-    font-style: italic;
-    }
-    .annotation{
-        text-align:justify;
-        width:400px;
-    }
-     .hr {
-    border: none; /* Убираем границу */
-    background-color: grey; /* Цвет линии */
-    color: red; /* Цвет линии для IE6-7 */
-    height: 2px; /* Толщина линии */
-   }
-     .body{
-         text-align:justify;
-     }
 
-</style>

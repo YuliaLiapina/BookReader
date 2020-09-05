@@ -17,7 +17,7 @@ namespace BookReader.Data.Repositories
             }
         }
 
-        public void DeleteGenre(int? id)
+        public void DeleteGenre(int id)
         {
             using (var context = new BookReaderDbContext())
             {
@@ -27,7 +27,7 @@ namespace BookReader.Data.Repositories
             }
         }
 
-        public Genre GetGenreById(int? id)
+        public Genre GetGenreById(int id)
         {
             using (var context = new BookReaderDbContext())
             {

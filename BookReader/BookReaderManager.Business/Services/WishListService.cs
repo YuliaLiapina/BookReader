@@ -27,18 +27,18 @@ namespace BookReaderManager.Business.Services
             _wishListRepository.AddWishList(mappedWishlist);
         }
 
-        public void DeleteBookFromWishList(int? bookId, int? wishListId)
+        public void DeleteBookFromWishList(int bookId, int wishListId)
         {
             var book = _bookRepository.GetBookById(bookId);
             _wishListRepository.DeleteBookFromWishList(book, wishListId);
         }
-        public void AddBookToWishList(int? bookId, int? wishListId)
+        public void AddBookToWishList(int bookId, int wishListId)
         {
             var book = _bookRepository.GetBookById(bookId);
             _wishListRepository.AddBookToWishList(book, wishListId);
         }
 
-        public void DeleteWishList(int? id)
+        public void DeleteWishList(int id)
         {
             _wishListRepository.DeleteWishList(id);
         }
@@ -51,7 +51,7 @@ namespace BookReaderManager.Business.Services
             return wishListsModel;
         }
 
-        public WishListModel GetWishListById(int? id)
+        public WishListModel GetWishListById(int id)
         {
             var wishList = _wishListRepository.GetWishListById(id);
             var wishListModel = _mapper.Map<WishListModel>(wishList);

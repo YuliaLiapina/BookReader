@@ -8,7 +8,7 @@ namespace BookReaderManager.Business.Models
         {
             Books = new List<BookModel>();
         }
-        public int? Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
 
         public ICollection<BookModel> Books { get; set; }

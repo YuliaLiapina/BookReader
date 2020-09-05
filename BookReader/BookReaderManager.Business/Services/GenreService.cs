@@ -30,7 +30,7 @@ namespace BookReaderManager.Business.Services
             }
         }
 
-        public void DeleteGenre(int? id)
+        public void DeleteGenre(int id)
         {
             _genreRepository.DeleteGenre(id);
         }
@@ -44,7 +44,7 @@ namespace BookReaderManager.Business.Services
             return genresSorted;
         }
 
-        public GenreModel GetGenreById(int? id)
+        public GenreModel GetGenreById(int id)
         {
             var genre = _genreRepository.GetGenreById(id);
             var genreModel = _mapper.Map<GenreModel>(genre);

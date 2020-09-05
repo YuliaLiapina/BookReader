@@ -11,7 +11,7 @@ namespace BookReaderManager.Business.Models
             Genres = new List<GenreModel>();
             WishLists = new List<WishListModel>();
         }
-        public int? Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
        // public int Pages { get; set; }
         public string Annotation { get; set; }

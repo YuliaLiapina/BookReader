@@ -26,11 +26,11 @@ namespace BookReaderManager.Business.Services
 
             if (authorToCheck == null)
             {
-                _authorRepository.AddAuthor(authorToCheck);
+                _authorRepository.AddAuthor(currentAuthor);
             }
         }
 
-        public void DeleteAuthor(int? id)
+        public void DeleteAuthor(int id)
         {
             _authorRepository.DeleteAuthor(id);
         }
@@ -44,7 +44,7 @@ namespace BookReaderManager.Business.Services
             return authorsSorted;
         }
 
-        public AuthorModel GetAuthorById(int? id)
+        public AuthorModel GetAuthorById(int id)
         {
             var author = _authorRepository.GetAuthorById(id);
             var authorModel = _mapper.Map<AuthorModel>(author);

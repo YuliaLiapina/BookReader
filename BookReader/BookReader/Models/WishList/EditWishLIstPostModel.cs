@@ -1,18 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BookReader.Models.WishList
 {
     public class EditWishListPostModel
-    {
-        public EditWishListPostModel()
-        {
-            Books = new List<BookViewModel>();
-        }
-        public int? Id { get; set; }
-        public string Name { get; set; }
-        public string UserId { get; set; }
-        public ApplicationUserViewModel User { get; set; }
+     {
+        public int Id { get; set; }
 
-        public ICollection<BookViewModel> Books { get; set; }
+        [Required(ErrorMessage = "Поле должно быть установлено")]
+        public string Name { get; set; }
     }
 }

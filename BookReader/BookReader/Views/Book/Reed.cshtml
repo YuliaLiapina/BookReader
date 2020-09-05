@@ -1,11 +1,17 @@
 ﻿@model BookReader.Models.Book.ReedBookViewModel
-@*@model PagedList.IPagedList<string>*@
 @using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Reed";
 }
-    <div class=" wrapper">
+    <head>
+        <meta charset="utf-8" />
+    </head>
+    <div class="reed-book">
+        <p><a class="btn btn-default" href="/Home/Index">Назад к списку книг&raquo;</a></p>
+    </div>
+
+    <div class= "wrapper">
         <div class="book-info">
             <div class="image">
                 <img src="@Model.Cover" width="200" height="300" />
@@ -50,45 +56,5 @@
         </div>*@
 
 
-    <style>
-        .name-authors-genres, .image {
-            float: left;
-            margin: 0 10px;
-            margin-top: 20px;
-        }
-
-        .name-authors-genres {
-            width: 70%;
-        }
-
-        .title {
-            margin: 1em 0 0.5em 0;
-            color: #343434;
-            font-size: 22px;
-            line-height: 40px;
-            font-weight: normal;
-            text-transform: uppercase;
-            font-family: 'Orienta', sans-serif;
-            letter-spacing: 1px;
-            font-style: italic;
-        }
-
-        .annotation {
-            text-align: justify;
-            width: 400px;
-        }
-
-        .hr {
-            border: none; /* Убираем границу */
-            background-color: grey; /* Цвет линии */
-            color: red; /* Цвет линии для IE6-7 */
-            height: 2px; /* Толщина линии */
-            width: 50%;
-        }
-
-        .book-body {
-            width:70%;
-            text-align: justify;
-        }
-    </style>
+   
 

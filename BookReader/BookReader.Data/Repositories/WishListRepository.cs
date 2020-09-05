@@ -17,7 +17,7 @@ namespace BookReader.Data.Repositories
             }
         }
 
-        public void DeleteWishList(int? id)
+        public void DeleteWishList(int id)
         {
             using (var context = new BookReaderDbContext())
             {
@@ -37,7 +37,7 @@ namespace BookReader.Data.Repositories
             }
         }
 
-        public WishList GetWishListById(int? id)
+        public WishList GetWishListById(int id)
         {
             using (var context = new BookReaderDbContext())
             {
@@ -62,13 +62,13 @@ namespace BookReader.Data.Repositories
         {
             using (var context = new BookReaderDbContext())
             {
-                var wishLists = context.WishLists.Where(w => w.UserId == id).ToList();
+                var wishLists = context.WishLists.Include(w=>w.Books).Where(w => w.UserId == id).ToList();
 
                 return wishLists;
             }
         }
 
-        public void DeleteBookFromWishList(Book book, int? wishListId)
+        public void DeleteBookFromWishList(Book book, int wishListId)
         {
             using(var context = new BookReaderDbContext())
             {
@@ -80,7 +80,7 @@ namespace BookReader.Data.Repositories
             }        
         }
 
-        public void AddBookToWishList(Book book, int? wishListId)
+        public void AddBookToWishList(Book book, int wishListId)
         {
             using (var context = new BookReaderDbContext())
             {

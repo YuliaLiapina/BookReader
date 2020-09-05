@@ -3,18 +3,22 @@
 @{
     ViewBag.Title = "Details";
 }
+    <div class="books-in-genre">
+        <h1>Все книги жанра @Model.Name</h1>
 
-<h1>Все книги жанра @Model.Name</h1>
-
-<div>
-    <hr />
-    <div class="div-book">
-        @foreach (var book in Model.Books)
-        {
-            <span class="bk">
-                <img src="@book.Cover" width="150" , height="200" />
-                <p><a href="/Book/Details/@book.Id">@book.Name</a></p>
-            </span>
-        }
+        <div>
+            <hr />
+            <div class="div-book">
+                @foreach (var book in Model.Books)
+                {
+                    <span class="bk">
+                        <img src="@book.Cover" width="150" , height="200" />
+                        <p><a href="/Book/Details/@book.Id">@book.Name</a></p>
+                    </span>
+                }
+            </div>
+        </div>
+        <div>
+            <p><a class="btn btn-default" href="/Home/Index">Назад &raquo;</a></p>
+        </div>
     </div>
-</div>

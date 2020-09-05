@@ -208,9 +208,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Author\AuthorPostModel.cs" />
     <Compile Include="Models\Book\BookDetailsViewModel.cs" />
+    <Compile Include="Models\Book\BookPostModel.cs" />
     <Compile Include="Models\Book\ReedBookViewModel.cs" />
     <Compile Include="Models\ChartStatisticsViewModel.cs" />
+    <Compile Include="Models\Genre\GenrePostModel.cs" />
     <Compile Include="Models\User\ApplicationUserViewModel.cs" />
     <Compile Include="Models\Author\AuthorViewModel.cs" />
     <Compile Include="Models\Book\BookViewModel.cs" />
@@ -228,6 +231,7 @@
     <Compile Include="Models\User\GetUsersViewModel.cs" />
     <Compile Include="Models\StartPageIndexViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\WishList\WishListPostModel.cs" />
     <Compile Include="Models\WishList\WishListViewModel.cs" />
     <Compile Include="Models\WishList\CreateWishListPostModel.cs" />
     <Compile Include="Models\WishList\EditWishListPostModel.cs" />
@@ -274,6 +278,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Icons\close.png" />
+    <Content Include="Content\Icons\tick.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -327,7 +333,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Book\Books.cshtml" />
-    <Content Include="Views\Admin\AdminPanel.cshtml" />
     <Content Include="Views\Admin\Statistics.cshtml" />
     <Content Include="Views\Admin\UsersInfo.cshtml" />
     <Content Include="Views\Book\Details.cshtml" />

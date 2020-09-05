@@ -8,10 +8,10 @@ namespace BookReaderManager.Business.Interfaces
     {
         IList<BookModel> GetAllBooks();
         void AddBook(BookModel book);
-        void DeleteBook(int? id);
-        BookModel GetBookById(int? id);
+        void DeleteBook(int id);
+        BookModel GetBookById(int id);
         void UpdateBook(BookModel book);
-        List<string> GetBookBody(BookModel book);
+        List<string> /*void */GetBookBody(string bookfilePath);
         BookModel AddNewGenresAndAuthors(BookModel book, IList<int> genresIds, IList<int> authorsIds);
         BookModel AddLoadedFiles(BookModel book, IEnumerable<HttpPostedFileBase> uploads, string localPath);
         IList<BookModel> GetBooksByName(string name);

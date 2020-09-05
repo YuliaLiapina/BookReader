@@ -20,7 +20,7 @@ namespace BookReader.Data.Repositories
             }
         }
 
-        public void DeleteBook(int? id)
+        public void DeleteBook(int id)
         {
             using(var context = new BookReaderDbContext())
             {
@@ -35,11 +35,12 @@ namespace BookReader.Data.Repositories
             using(var context = new BookReaderDbContext())
             {
                 var books = context.Books.Include(b => b.Authors).Include(b => b.Genres).ToList();
+
                 return books;
             }
         }
 
-        public Book GetBookById(int? id)
+        public Book GetBookById(int id)
         {
             using (var context = new BookReaderDbContext())
             {
@@ -83,7 +84,7 @@ namespace BookReader.Data.Repositories
                     currentBook.Annotation = book.Annotation;
                     currentBook.Cover = book.Cover;
                     currentBook.Body = book.Body;
-                    
+
                     context.Books.Attach(currentBook);
                     context.Entry(currentBook).State = EntityState.Modified;
                 }
@@ -91,15 +92,5 @@ namespace BookReader.Data.Repositories
                 context.SaveChanges();
             }
         }
-
-        //public Book GetBookByName(string name)
-        //{
-        //    using(var context = new BookReaderDbContext())
-        //    {
-        //        var book = context.Books.FirstOrDefault(b => b.Name == name);
-
-        //        return book;
-        //    }
-        //}
     }
 }

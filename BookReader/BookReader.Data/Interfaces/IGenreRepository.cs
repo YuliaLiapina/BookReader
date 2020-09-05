@@ -7,8 +7,8 @@ namespace BookReader.Data.Interfaces
     {
         IList<Genre> GetAllGenres();
         void AddGenre(Genre genre);
-        void DeleteGenre(int? id);
-        Genre GetGenreById(int? id);
+        void DeleteGenre(int id);
+        Genre GetGenreById(int id);
         void UpdateGenre(Genre genre);
         Genre GetGenreByName(Genre genre);
     }

@@ -2,10 +2,7 @@
 using BookReader.Models;
 using BookReaderManager.Business.Interfaces;
 using BookReaderManager.Business.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace BookReader.Controllers
@@ -32,7 +29,7 @@ namespace BookReader.Controllers
             return View(result);
         }
 
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
             _genreService.DeleteGenre(id);
 
@@ -41,19 +38,28 @@ namespace BookReader.Controllers
 
         public ActionResult Create ()
         {
-            return View();
+            var model = new CreateGenrePostModel();
+
+            return View(model);
         }
 
         [HttpPost]
         public ActionResult Create(CreateGenrePostModel genre)
         {
-            var genreModel = _mapper.Map<GenreModel>(genre);
-            _genreService.AddGenre(genreModel);
+            if(ModelState.IsValid)
+            {
+                var genreModel = _mapper.Map<GenreModel>(genre);
+                _genreService.AddGenre(genreModel);
 
-            return RedirectToAction("Genres");
+                return RedirectToAction("Genres");
+            }
+
+            var model = new CreateGenrePostModel();
+
+            return View("Create", model);
         }
 
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
             var genre = _genreService.GetGenreById(id);
             var model = _mapper.Map<EditGenrePostModel>(genre);
@@ -64,14 +70,21 @@ namespace BookReader.Controllers
         [HttpPost]
         public ActionResult Edit(EditGenrePostModel genreEdit)
         {
-            var genre = _mapper.Map<GenreModel>(genreEdit);
+            if(ModelState.IsValid)
+            {
+                var genre = _mapper.Map<GenreModel>(genreEdit);
+                _genreService.UpdateGenre(genre);
 
-            _genreService.UpdateGenre(genre);
+                return RedirectToAction("Genres");
+            }
 
-            return RedirectToAction("Genres");
+            var genreToEdit = _genreService.GetGenreById(genreEdit.Id);
+            var model = _mapper.Map<EditGenrePostModel>(genreToEdit);
+
+            return View("Edit", model);
         }
 
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
             var genre = _genreService.GetGenreById(id);
             var genreViewModel = _mapper.Map<GenreViewModel>(genre);

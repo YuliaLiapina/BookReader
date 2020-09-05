@@ -3,23 +3,24 @@
 @{
     ViewBag.Title = "UsersInfo";
 }
+    <div class="users-info">
+        <h2>Информация о пользователях</h2>
+        <ol>
 
-<h2>Информация о пользователях</h2>
-<ol>
+            @foreach (var user in Model.Users)
+            {
+                <li>
+                    <p>Имя пользователя: &nbsp @user.UserName</p>
+                    <p>Возраст: &nbsp @user.Age</p>
+                    <p>Почта: &nbsp @user.Email</p>
+                    <p>Телефон: &nbsp @user.PhoneNumber</p>
+                    <p>Дата регистрации: &nbsp @user.RegistrationDate</p>
+                </li>
+                <hr />
+            }
 
-    @foreach (var user in Model.Users)
-    {
-        <li>
-            <p>Имя пользователя: &nbsp @user.UserName</p>
-            <p>Возраст: &nbsp @user.Age</p>
-            <p>Почта: &nbsp @user.Email</p>
-            <p>Телефон: &nbsp @user.PhoneNumber</p>
-            <p>Дата регистрации: &nbsp @user.RegistrationDate</p>
-        </li>
-        <hr />
-    }
-
-</ol>
-<div>
-    @Html.ActionLink("Назад", "AdminPanel")
-</div>
+        </ol>
+        <div>
+            <p><a class="btn btn-default" href="/Home/Index">На главную &raquo;</a></p>
+        </div>
+    </div>

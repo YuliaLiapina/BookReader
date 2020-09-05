@@ -3,14 +3,20 @@
 @{
     ViewBag.Title = "Details";
 }
-    <h2>
-        Все книги автора @Model.FirstName @Model.LastName
-    </h2>
-<div>
-   
+
+    <div class="books-author">
+        <h2>
+            Все книги автора @Model.FirstName @Model.LastName
+        </h2>
+        <div>
+
             @foreach (var book in Model.Books)
             {
-                <img src="@book.Cover" width="150", height="200"/>
+                <img src="@book.Cover" width="150" , height="200" />
                 <p><a href="/Book/Details/@book.Id">@book.Name</a></p>
             }
-</div>
+        </div>
+        <div>
+            <p><a class="btn btn-default" href="/Home/Index">Назад &raquo;</a></p>
+        </div>
+    </div>

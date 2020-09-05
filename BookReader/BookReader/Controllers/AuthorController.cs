@@ -29,14 +29,14 @@ namespace BookReader.Controllers
             return View(model);
         }
 
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
             _authorService.DeleteAuthor(id);
 
             return RedirectToAction("Authors");
         }
 
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
             var authorModel = _authorService.GetAuthorById(id);
             var model = _mapper.Map<EditAuthorPostModel>(authorModel);
@@ -47,28 +47,45 @@ namespace BookReader.Controllers
         [HttpPost]
         public ActionResult Edit(EditAuthorPostModel authorEdit)
         {
-            var author = _mapper.Map<AuthorModel>(authorEdit);
+            if(ModelState.IsValid)
+            {
+                var author = _mapper.Map<AuthorModel>(authorEdit);
 
-            _authorService.UpdateAuthor(author);
+                _authorService.UpdateAuthor(author);
 
-            return RedirectToAction("Authors");
+                return RedirectToAction("Authors");
+            }
+
+            var authorModel = _authorService.GetAuthorById(authorEdit.Id);
+            var model = _mapper.Map<EditAuthorPostModel>(authorModel);
+
+            return View("Edit", model);
         }
 
         public ActionResult Create()
         {
-            return View();
+            var model = new CreateAuthorPostModel();
+
+            return View(model);
         }
 
         [HttpPost]
         public ActionResult Create(CreateAuthorPostModel author)
         {
-            var authorModel = _mapper.Map<AuthorModel>(author);
-            _authorService.AddAuthor(authorModel);
+            if(ModelState.IsValid)
+            {
+                var authorModel = _mapper.Map<AuthorModel>(author);
+                _authorService.AddAuthor(authorModel);
+                
+                return RedirectToAction("Authors");
+            }
 
-            return RedirectToAction("Authors");
+            var model = new CreateAuthorPostModel();
+
+            return View("Create", model);
         }
 
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
             var author = _authorService.GetAuthorById(id);
             var authorViewModel = _mapper.Map<AuthorViewModel>(author);

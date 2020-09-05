@@ -12,7 +12,7 @@ namespace BookReader.Data.Models
         {
             Books = new List<Book>();
         }
-        public int? Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
 
         public string UserId { get; set; }

@@ -5,49 +5,50 @@
 
     <div class="authors-info">
         <div>
-            <p><a class="btn btn-default" href="/Admin/AdminPanel">Назад &raquo;</a></p>
+            <p><a class="btn btn-default" href="/Home/Index">На главную &raquo;</a></p>
         </div>
         <p><a class="btn btn-default" href="/Author/Create">Добавить нового автора &raquo;</a></p>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        Имя Фамилия
-                    </th>
-                    <th>
-                        Книги автора
-                    </th>
-                    <th>
-                        Удалить
-                    </th>
-                    <th>
-                        Редактировать
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var author in Model.Authors)
-                {
-
+        <div>
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>
-                            @author.FirstName @author.LastName
-                        </td>
-                        <td>
-                            @foreach (var book in author.Books)
-                            {
-                                <p>@book.Name</p>
-                            }
-                        </td>
-                        <td>
-                            <p><a class="btn btn-default" href="/Author/Delete">Удалить автора &raquo;</a></p>
-                        </td>
-                        <td>
-                            <p><a class="btn btn-default" href="/Author/Edit">Редактировать &raquo;</a></p>
-                        </td>
+                        <th>
+                            Имя Фамилия
+                        </th>
+                        <th>
+                            Книги автора
+                        </th>
+                        <th>
+                            Удалить
+                        </th>
+                        <th>
+                            Редактировать
+                        </th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var author in Model.Authors)
+                    {
+
+                        <tr>
+                            <td>
+                                @author.FirstName @author.LastName
+                            </td>
+                            <td>
+                                @foreach (var book in author.Books)
+                                {
+                                    <p>@book.Name</p>
+                                }
+                            </td>
+                            <td>
+                                <p><a class="btn btn-default" href="/Author/Delete/@author.Id">Удалить автора &raquo;</a></p>
+                            </td>
+                            <td>
+                                <p><a class="btn btn-default" href="/Author/Edit/@author.Id">Редактировать &raquo;</a></p>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>

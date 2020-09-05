@@ -7,8 +7,8 @@ namespace BookReaderManager.Business.Interfaces
     {
         IEnumerable<GenreModel> GetAllGenres();
         void AddGenre(GenreModel genre);
-        void DeleteGenre(int? id);
-        GenreModel GetGenreById(int? id);
+        void DeleteGenre(int id);
+        GenreModel GetGenreById(int id);
         void UpdateGenre(GenreModel genre);
     }
 }

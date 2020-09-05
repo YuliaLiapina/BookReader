@@ -124,10 +124,9 @@ namespace BookReader.Data
             galaxy.Genres.Add(novel);
             galaxy.Genres.Add(humor);
 
-            var shoushenk = new Book { Cover = "/Content/Books/TheShawshankRedemption/ShoushenkCover.jpg", Name = "Побег из Шоушенка", Annotation = "Книга «Побег из Шоушенка» соединяет ужасы тюремной жизни и фантастику побега. Шоушенк – название тюрьмы. Энди, вице-президент солидного банка, приговаривается к двум пожизненным заключениям по обвинению в убийстве жены и ее любовника. Он отбывает заключение в тюрьме Шоушенк, где проходит все круги ада, проявляя недюжинное мужество, упорство и хладнокровие. Если тебе нет еще 30-ти, а ты получаешь пожизненное, то приготовся к худшему: для тебя выхода из Шоушенка не будет.", Body = "/Content/Books/TheShawshankRedemption/TheShawshankRedemption.txt" };
-            var shoushenkAuthor = new Author { FirstName = "Стивен", LastName = "Кинг" };
+            var shoushenk = new Book { Cover = "/Content/Books/TheShawshankRedemption/ShoushenkCover.jpg", Name = "Побег из Шоушенка", Annotation = "Книга «Побег из Шоушенка» соединяет ужасы тюремной жизни и фантастику побега. Шоушенк – название тюрьмы. Энди, вице-президент солидного банка, приговаривается к двум пожизненным заключениям по обвинению в убийстве жены и ее любовника. Он отбывает заключение в тюрьме Шоушенк, где проходит все круги ада, проявляя недюжинное мужество, упорство и хладнокровие. Если тебе нет еще 30-ти, а ты получаешь пожизненное, то приготовся к худшему: для тебя выхода из Шоушенка не будет.", Body = "/Content/Books/TheShawshankRedemption/TheShawshankRedemption.txt" };           
             var detective = new Genre { Name = "Детектив" };
-            shoushenk.Authors.Add(shoushenkAuthor);
+            shoushenk.Authors.Add(greenMileAuthor);
             shoushenk.Genres.Add(drama);
             shoushenk.Genres.Add(detective);
 
@@ -148,7 +147,7 @@ namespace BookReader.Data
             var listGenres = new List<Genre>() { drama, humor, kids, detective, novel, scienceFiction, popularScience, fantasy, antiytopia, adventures };
             context.Genres.AddRange(listGenres);
                         
-            var listAuthors = new List<Author>() { forrestGumpAuthor, winnieThePoohAuthor, shoushenkAuthor, galaxyAuthor, kratchayshayaIstoriyaVremeniAuthor, paddingtonAuthor, masterAndMargaritaAuthor, littlePrinceAuthor, hobbitAuthor, gulliverJourneyAuthor, greenMileAuthor, flowersForElgernonAuthor, empireOfAngelsAuthor, dandelionWineAuthor, braveNewWorldAuthor, aviatorAuthor, atlasShruggedAuthor };
+            var listAuthors = new List<Author>() { forrestGumpAuthor, winnieThePoohAuthor, galaxyAuthor, kratchayshayaIstoriyaVremeniAuthor, paddingtonAuthor, masterAndMargaritaAuthor, littlePrinceAuthor, hobbitAuthor, gulliverJourneyAuthor, greenMileAuthor, flowersForElgernonAuthor, empireOfAngelsAuthor, dandelionWineAuthor, braveNewWorldAuthor, aviatorAuthor, atlasShruggedAuthor };
             context.Authors.AddRange(listAuthors);
 
             context.SaveChanges();

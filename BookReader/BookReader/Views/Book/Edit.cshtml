@@ -3,95 +3,76 @@
 @{
     ViewBag.Title = "Edit";
 }
+    <div class="edit-content">
+        <h2>Редактировать книгу</h2>
+        @using (Html.BeginForm("Edit", "Book", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @*<div class="upload-files">
+                <label for="body">Книга</label>
+                <input type="file" name="uploads" accept=".txt" />
+                <br />
+                <label for="cover">Обложка</label>
+                <input type="file" name="uploads" accept=".jpeg, .jpg" />
+            </div>*@
+            <br />
 
+            @Html.AntiForgeryToken()
+            <div class="edit-book">
+                <div class="form-horizontal">
+                    <div class="col-md-10">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.Book.Id)
+                    </div>
+                </div>
 
-@using (Html.BeginForm("Edit", "Book", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    <label for="body">Книга</label>
-    <input type="file" name="uploads" accept=".txt" />
-    <label for="cover">Обложка</label>
-    <input type="file" name="uploads" accept=".jpeg, .jpg" />
-    <br />
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Book.Name, "Название", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Book.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Book.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-    @Html.AntiForgeryToken()
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Book.Annotation, "Аннотация", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Book.Annotation, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Book.Annotation, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-    <div class="form-horizontal">
-        <div class="col-md-10">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.Book.Id)
-        </div>
-    </div>
+                <div class="form-group">                   
+                    <div class="upload-files">
+                        <label for="body">Книга</label>
+                        @Html.HiddenFor(x => x.Book.Body)
+                        <input type="file" name="uploads" accept=".txt" />
+                        <br />
+                        <label for="cover">Обложка</label>
+                        @Html.HiddenFor(x => x.Book.Cover)
+                        <input type="file" name="uploads" accept=".jpeg, .jpg" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Book.Genres, "Добавить жанры", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.ListBoxFor(x => x.GenresIds, Model.Genres)
+                </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Book.Name, "Название", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Book.Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Book.Name, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Book.Genres, "Добавить авторов", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.ListBoxFor(x => x.AuthorsIds, Model.Authors)
+                </div>
 
-    @*<div class="form-group">
-            @Html.LabelFor(model => model.Book.Pages, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Book.Pages, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Book.Pages, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Сохранить" class="btn btn-default" />
+                    </div>
+                </div>
             </div>
-        </div>*@
+        }
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Book.Annotation, "Аннотация", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Book.Annotation, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Book.Annotation, "", new { @class = "text-danger" })
+        <div>
+            <p><a class="btn btn-default" href="/Book/Books">Назад &raquo;</a></p>
         </div>
+
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Book.Cover, "Обложка", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Book.Cover, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Book.Cover, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Book.Body, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Book.Body, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Book.Body, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Book.Genres, "Добавить жанры", htmlAttributes: new { @class = "control-label col-md-2" })
-        @Html.ListBoxFor(x => x.GenresIds, Model.Genres)
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Book.Genres, "Добавить авторов", htmlAttributes: new { @class = "control-label col-md-2" })
-        @Html.ListBoxFor(x => x.AuthorsIds, Model.Authors)
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Сохранить" class="btn btn-default" />
-        </div>
-    </div>
-    @*</div>*@
-}
-
-<div>
-    <p><a class="btn btn-default" href="/Book/Books">Назад &raquo;</a></p>
-</div>
-
-<style>
-    .form-group {
-        margin: 20px;
-        padding: 20px;
-    }
-
-    .form-group {
-        margin: 20px;
-        padding: 20px;
-    }
-</style>

@@ -2,7 +2,9 @@
 using AutoMapper;
 using BookReader.Data.Models;
 using BookReader.Models;
+using BookReader.Models.Author;
 using BookReader.Models.Book;
+using BookReader.Models.Genre;
 using BookReader.Models.WishList;
 using BookReaderManager.Business.Models;
 
@@ -80,6 +82,18 @@ namespace BookReader.Autofac
 
                 cfg.CreateMap<BookModel, ReedBookViewModel>();
                 cfg.CreateMap<ReedBookViewModel, BookModel>();
+
+                cfg.CreateMap<BookModel, BookPostModel>();
+                cfg.CreateMap<BookPostModel, BookModel>();
+
+                cfg.CreateMap<AuthorModel, AuthorPostModel>();
+                cfg.CreateMap<AuthorPostModel, AuthorModel>();
+
+                cfg.CreateMap<WishListModel, WishListPostModel>();
+                cfg.CreateMap<WishListPostModel, WishListModel>();
+
+                cfg.CreateMap<GenreModel, GenrePostModel>();
+                cfg.CreateMap<GenrePostModel, GenreModel>();
 
             })).AsSelf().SingleInstance();
 

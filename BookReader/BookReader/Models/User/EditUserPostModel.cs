@@ -5,6 +5,7 @@ namespace BookReader.Models
     public class EditUserPostModel
     {
         public string Id { get; set; }
+
         [Required]
         [Display(Name = "Возраст")]
         [Range(1, 100, ErrorMessage = "Недопустимый возраст")]

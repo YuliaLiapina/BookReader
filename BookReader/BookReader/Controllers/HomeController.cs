@@ -2,7 +2,6 @@
 using BookReader.Models;
 using BookReaderManager.Business.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace BookReader.Controllers
