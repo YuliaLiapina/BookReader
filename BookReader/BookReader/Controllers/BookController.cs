@@ -131,7 +131,9 @@ namespace BookReader.Controllers
         public ActionResult Reed(int id, int? page)
         {
             var book = _bookService.GetBookById(id);
-            HttpCookie cookieRequest = HttpContext.Request.Cookies.Get($"Book{id}");
+            var idUser= User.Identity.GetUserId();
+
+            HttpCookie cookieRequest = HttpContext.Request.Cookies.Get($"Book{id}{idUser}");
 
             if (page.HasValue||cookieRequest==null)
             {
@@ -145,7 +147,8 @@ namespace BookReader.Controllers
 
                 model.Pages = bodyPagging;
 
-                HttpCookie cookie = new HttpCookie($"Book{id}", $"{pageNumber}");
+                var userId= User.Identity.GetUserId();
+                HttpCookie cookie = new HttpCookie($"Book{id}{userId}", $"{pageNumber}");
                 cookie.Expires = DateTime.Now.AddDays(2);
                 Response.Cookies.Add(cookie);
 
