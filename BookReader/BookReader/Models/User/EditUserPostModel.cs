@@ -15,6 +15,8 @@ namespace BookReader.Models
         [Display(Name = "Телефон")]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Недопустимый формат, введите телефон в формате xxxxxxxxxx")]
         public string PhoneNumber { get; set; }
+
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Недопустимая длина имени")]
         public string UserName { get; set; }
 
     }

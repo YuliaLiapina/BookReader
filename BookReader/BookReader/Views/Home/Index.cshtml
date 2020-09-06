@@ -18,10 +18,12 @@
 
             @foreach (var book in Model.Books)
             {
-                <span class="element">
+            <span class="element">
+                <a href="/Book/Details/@book.Id">
                     <img id="image-book" src="@book.Cover" height="200" width="130" /><br />
-                    <a href="/Book/Details/@book.Id">@book.Name</a>
-                </span>
+                    @book.Name
+                </a>
+            </span>
 
             }
         </div>

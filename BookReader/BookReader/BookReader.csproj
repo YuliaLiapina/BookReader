@@ -281,6 +281,7 @@
     <Content Include="Content\Icons\close.png" />
     <Content Include="Content\Icons\tick.png" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Pictures\NotFound.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
