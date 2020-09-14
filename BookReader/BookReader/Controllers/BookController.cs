@@ -30,6 +30,7 @@ namespace BookReader.Controllers
             _wishListService = wishListService;
         }
         // GET: Book
+        [Authorize(Roles = "Admin")]
         public ActionResult Books()
         {
             var booksModel = _bookService.GetAllBooks();
@@ -59,6 +60,7 @@ namespace BookReader.Controllers
         }
 
         // GET: Book/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             var model = GetCreateBookPostModel();
@@ -69,9 +71,10 @@ namespace BookReader.Controllers
         // POST: Book/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(CreateBookPostModel book, IEnumerable<HttpPostedFileBase> uploads)
         {
-            if (ModelState.IsValid && uploads != null&&book.AuthorsIds!=null&&book.Genres!=null)
+            if (ModelState.IsValid && uploads != null&&book.AuthorsIds!=null&&book.GenresIds!=null)
             {
                 var pathBody = Server.MapPath("~/Content/Files/");
                 var bookModel = _mapper.Map<BookModel>(book);
@@ -81,7 +84,7 @@ namespace BookReader.Controllers
 
                 _bookService.AddBook(result);
 
-                return View(book);
+                return RedirectToAction("Books", "Book");
             }
 
             var model = GetCreateBookPostModel();
@@ -90,6 +93,7 @@ namespace BookReader.Controllers
         }
 
         // GET: Book/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             var model=GetEditBookPostModel(id);
@@ -100,6 +104,7 @@ namespace BookReader.Controllers
 
         // POST: Book/Edit/5
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(EditBookPostModel bookEdit, IEnumerable<HttpPostedFileBase> uploads)
         {
             if(ModelState.IsValid)
@@ -120,6 +125,7 @@ namespace BookReader.Controllers
         }
 
         // GET: Book/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             _bookService.DeleteBook(id);
@@ -205,7 +211,7 @@ namespace BookReader.Controllers
         {
             var book = _bookService.GetBookById(id);
             var bookPostModel = _mapper.Map<BookPostModel>(book);
-
+            
             var genresModel = _genreService.GetAllGenres();
             var genresViewModel = _mapper.Map<IList<GenreViewModel>>(genresModel);
 

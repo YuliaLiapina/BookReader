@@ -48,10 +48,10 @@
                     }
                     @if (User.IsInRole("User"))
                     {
-                        <li>@Html.ActionLink("Личный кабинет", "UserInfo", "User") </li>
+                        @*<li>@Html.ActionLink("Личный кабинет", "UserInfo", "User") </li>*@
                         <li>@Html.ActionLink("Моя библиотека", "WishLists", "WishList")</li>
                     }
-                    <li>
+                    <li class="search-book">
                         <form method="get" action="@Url.Action("Search", "Book")">
                             <p class="search">
                                 <input type="text" name="name">

@@ -22,9 +22,16 @@ namespace BookReaderManager.Business.Services
         public void AddAuthor(AuthorModel author)
         {
             var currentAuthor = _mapper.Map<Author>(author);
-            var authorToCheck = _authorRepository.GetAuthorByName(currentAuthor);
+            //var authorToCheck = _authorRepository.GetAuthorByName(currentAuthor);
 
-            if (authorToCheck == null)
+            //if (authorToCheck == null)
+            //{
+            //    _authorRepository.AddAuthor(currentAuthor);
+            //}
+
+            var check = CheckAuthorDuplication(author);
+
+            if(check==false)
             {
                 _authorRepository.AddAuthor(currentAuthor);
             }
@@ -55,7 +62,24 @@ namespace BookReaderManager.Business.Services
         public void UpdateAuthor(AuthorModel author)
         {
             var currentAuthor = _mapper.Map<Author>(author);
-            _authorRepository.UpdateAuthor(currentAuthor);
+            var check = CheckAuthorDuplication(author);
+
+            if (check == false)
+            {
+                _authorRepository.UpdateAuthor(currentAuthor);
+            }
+        }
+
+        private bool CheckAuthorDuplication (AuthorModel author)
+        {
+            var currentAuthor = _mapper.Map<Author>(author);
+            var authorToCheck = _authorRepository.GetAuthorByName(currentAuthor);
+
+            if (authorToCheck == null)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

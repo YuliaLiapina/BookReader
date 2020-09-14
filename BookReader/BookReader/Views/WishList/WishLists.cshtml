@@ -7,12 +7,18 @@
 <h1>Моя библиотека</h1>
 
 <p><a class="btn btn-default" href="/WishList/Create/">Создать новый список желаний &raquo;</a></p>
+<br />
 
 @if (Model.wishLists != null)
 {
-
-    foreach (var wishList in Model.wishLists)
+<div class="wishlists-content">
+    @foreach (var wishList in Model.wishLists)
     {
-        <p><a href="/WishList/Details/@wishList.Id">@wishList.Name &raquo;</a> <a class="btn btn-default" href="/WishList/Delete/@wishList.Id">Удалить список желаний &raquo;</a></p>
+    <div class="wishList">
+        <a class="wishList-name" href="/WishList/Details/@wishList.Id"><u>@wishList.Name @*&raquo;*@</u></a>
+        <div id="delete-wishList"><a class="btn btn-default" href="/WishList/Delete/@wishList.Id">Удалить список желаний &raquo;</a></div>
+        <br />
+    </div>
     }
+</div>
 }

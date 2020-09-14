@@ -18,6 +18,7 @@ namespace BookReader.Controllers
             _mapper = mapper;
         }
         // GET: Genre
+        [Authorize(Roles = "Admin")]
         public ActionResult Genres()
         {
             var genres = _genreService.GetAllGenres();
@@ -29,6 +30,7 @@ namespace BookReader.Controllers
             return View(result);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             _genreService.DeleteGenre(id);
@@ -36,6 +38,7 @@ namespace BookReader.Controllers
             return RedirectToAction("Genres");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Create ()
         {
             var model = new CreateGenrePostModel();
@@ -44,6 +47,7 @@ namespace BookReader.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(CreateGenrePostModel genre)
         {
             if(ModelState.IsValid)
@@ -59,6 +63,7 @@ namespace BookReader.Controllers
             return View("Create", model);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             var genre = _genreService.GetGenreById(id);
@@ -68,6 +73,7 @@ namespace BookReader.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(EditGenrePostModel genreEdit)
         {
             if(ModelState.IsValid)

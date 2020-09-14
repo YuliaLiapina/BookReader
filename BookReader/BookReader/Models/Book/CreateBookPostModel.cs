@@ -7,13 +7,12 @@ namespace BookReader.Models
     
     public class CreateBookPostModel
     {
-        [Required(ErrorMessage = "Поле должно быть установлено")]       
+        [Required(ErrorMessage = "Поле должно быть установлено")]
         public string Name { get; set; }
         
         [Required(ErrorMessage = "Поле должно быть установлено")]
         public string Annotation { get; set; }
 
-        [Required(ErrorMessage = "Поле должно быть установлено")]
         public string Cover { get; set; }
 
         public IList<int> GenresIds { get; set; }

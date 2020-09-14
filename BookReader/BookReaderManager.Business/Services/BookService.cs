@@ -68,8 +68,6 @@ namespace BookReaderManager.Business.Services
 
             var lines = File.ReadAllLines($"{localPath}/{bookfilePath}");
 
-            // var currentLines = lines.Skip(pageNumber - 1 * pageSize).Take(pageSize);
-
             foreach (var line in lines)
             {
                 if (count < linesOnPage)

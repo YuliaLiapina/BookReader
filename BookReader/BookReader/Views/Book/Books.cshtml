@@ -32,7 +32,6 @@
             <tbody>
                 @foreach (var book in Model.Books)
                 {
-
                     <tr>
                         <td>
                             <img src="@book.Cover" width="150" height="200" /> @Html.ActionLink($"{book.Name}", "Details", new { id = book.Id })

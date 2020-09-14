@@ -20,14 +20,16 @@
                 <p class="title">
                     <h2>@Model.Name</h2>
                 </p>
+                Авторы:
                 @foreach (var author in Model.Authors)
                 {
-                    <p>@author.FirstName @author.LastName</p>
+                    <a href="/Author/Details/@author.Id">@author.FirstName @author.LastName</a><br />
                 }
+                Жанры:
 
                 @foreach (var genre in Model.Genres)
                 {
-                    <p>@genre.Name</p>
+                    <a class="genre-name-book-details" href="/Genre/Details/@genre.Id">@genre.Name</a>
                 }
 
                 <p></p>

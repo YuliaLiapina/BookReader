@@ -17,7 +17,9 @@ namespace BookReader.Controllers
             _authorService = authorService;
             _mapper = mapper;
         }
+
         // GET: Author
+        [Authorize(Roles = "Admin")]
         public ActionResult Authors()
         {
             var authors = _authorService.GetAllAuthors();
@@ -29,6 +31,7 @@ namespace BookReader.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             _authorService.DeleteAuthor(id);
@@ -36,6 +39,7 @@ namespace BookReader.Controllers
             return RedirectToAction("Authors");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             var authorModel = _authorService.GetAuthorById(id);
@@ -45,6 +49,7 @@ namespace BookReader.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(EditAuthorPostModel authorEdit)
         {
             if(ModelState.IsValid)
@@ -62,6 +67,7 @@ namespace BookReader.Controllers
             return View("Edit", model);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             var model = new CreateAuthorPostModel();
@@ -70,6 +76,7 @@ namespace BookReader.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(CreateAuthorPostModel author)
         {
             if(ModelState.IsValid)

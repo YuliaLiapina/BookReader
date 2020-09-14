@@ -5,58 +5,60 @@
 }
 
 <div class="back-button">
-    <p><a class="btn btn-default" href="/Home/Index">Назад &raquo;</a></p>
+    <p><a class="btn btn-default" href="/Home/Index">На главную &raquo;</a></p>
 </div>
 
-<div class="image">
-    <img src="@Model.Cover" width="200" height="300" />
-</div>
-<div class="name-authors-genres">
-    <p class="title">
-        <h2>@Model.Name</h2>
-    </p>
-    @foreach (var author in Model.Authors)
-    {
-        <p>@author.FirstName @author.LastName</p>
-    }
-
-    @foreach (var genre in Model.Genres)
-    {
-        <p>@genre.Name</p>
-    }
-
-    <p></p>
-    <hr />
-    <p></p>
-    <p class="annotation">@Model.Annotation</p>
-
-    <p><a class="btn btn-default" href="/Book/Reed/@Model.Id">Читать &raquo;</a></p>
-
-    <div class="btn-group">
-        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            Добавить в избранное
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-            @foreach (var wishList in Model.UserWishLists)
-            {
-                if (!wishList.Books.Any(b => b.Id == Model.Id))
-                {
-                    <li><a href='@Url.Action("AddBookToWishList", "WishList", new { bookId = Model.Id, wishListId = wishList.Id}, null)'>Добавить в «@wishList.Name»<img src="~/Content/Icons/tick.png" width="12" , height="12" /></a></li>
-
-                }
-                else
-                {
-                    <li><a href='@Url.Action("DeleteBookFromWishList", "WishList", new { bookId = Model.Id, wishListId = wishList.Id}, null)'>Удалить из «@wishList.Name»<img src="~/Content/Icons/close.png" width="10" , height="10" /></a></li>
-
-                }
-            }
-            <li><hr /></li>
-            <li><a href="/WishList/Create">Создать новый список желаний</a></li>
-        </ul>
+    <div class="image">
+        <img src="@Model.Cover" width="200" height="300" />
     </div>
-</div>
+    <div class="name-authors-genres">
+        <p class="title">
+            <h2>@Model.Name</h2>
+        </p>
+        Авторы:
+        @foreach (var author in Model.Authors)
+        {
+            <a href="/Author/Details/@author.Id">@author.FirstName @author.LastName</a><br />
+        }
+        Жанры:
+    
+        @foreach (var genre in Model.Genres)
+        {
+            <a class="genre-name-book-details" href="/Genre/Details/@genre.Id">@genre.Name</a>
+        }
+    
 
+            <p></p>
+            <hr />
+            <p></p>
+            <p class="annotation">@Model.Annotation</p>
+
+            <p><a class="btn btn-default" href="/Book/Reed/@Model.Id">Читать &raquo;</a></p>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Добавить в избранное
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    @foreach (var wishList in Model.UserWishLists)
+                    {
+                        if (!wishList.Books.Any(b => b.Id == Model.Id))
+                        {
+                            <li><a href='@Url.Action("AddBookToWishList", "WishList", new { bookId = Model.Id, wishListId = wishList.Id}, null)'>Добавить в «@wishList.Name»<img src="~/Content/Icons/tick.png" width="12" , height="12" /></a></li>
+
+                        }
+                        else
+                        {
+                            <li><a href='@Url.Action("DeleteBookFromWishList", "WishList", new { bookId = Model.Id, wishListId = wishList.Id}, null)'>Удалить из «@wishList.Name»<img src="~/Content/Icons/close.png" width="10" , height="10" /></a></li>
+
+                        }
+                    }
+                    <li><hr /></li>
+                    <li><a href="/WishList/Create">Создать новый список желаний</a></li>
+                </ul>
+            </div>
+        </div>
 
 
 

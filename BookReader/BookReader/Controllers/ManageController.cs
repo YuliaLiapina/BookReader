@@ -55,12 +55,12 @@ namespace BookReader.Controllers
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                message == ManageMessageId.ChangePasswordSuccess ? "Ваш пароль был изменен."
+                : message == ManageMessageId.SetPasswordSuccess ? "Ваш пароль установлен"
+                : message == ManageMessageId.SetTwoFactorSuccess ? "Ваш поставщик двухфакторной аутентификации настроен."
+                : message == ManageMessageId.Error ? "Произошла ошибка"
+                : message == ManageMessageId.AddPhoneSuccess ? "Ваш номер телефона был добавлен"
+                : message == ManageMessageId.RemovePhoneSuccess ? "Ваш номер телефона был удален"
                 : "";
 
             var userId = User.Identity.GetUserId();

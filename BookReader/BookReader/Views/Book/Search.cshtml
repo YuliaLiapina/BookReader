@@ -14,15 +14,19 @@
             {
                 foreach (var book in Model.Books)
                 {
-                    <span class="search-result">
-                        <img src="@book.Cover" width="150" height="200" />
-                        <br />
-                        @Html.ActionLink($"{book.Name}", "Details", new { id = book.Id })
-                    </span>
+        <span class="search-result">
+            <a href="/Book/Details/@book.Id">
+                <img id="image-book" src="@book.Cover" height="200" width="130" /><br />
+                @book.Name
+            </a>
+            @*<img src="@book.Cover" width="150" height="200" />
+            <br />
+            @Html.ActionLink($"{book.Name}", "Details", new { id = book.Id })*@
+        </span>
                 }
             }
         </div>
         <div>
-            <p><a class="btn btn-default" href="/Home/Index">Назад &raquo;</a></p>
+            <p><a class="btn btn-default" href="/Home/Index">На главную &raquo;</a></p>
         </div>
     </div>

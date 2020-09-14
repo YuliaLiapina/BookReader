@@ -8,12 +8,14 @@
 
         <div>
             <hr />
-            <div class="div-book">
+            <div class="genre-details">
                 @foreach (var book in Model.Books)
                 {
-                    <span class="bk">
-                        <img src="@book.Cover" width="150" , height="200" />
-                        <p><a href="/Book/Details/@book.Id">@book.Name</a></p>
+                    <span class="books-in-genre">
+                        <a href="/Book/Details/@book.Id">
+                            <img src="@book.Cover" width="150" , height="200" />
+                            <p>@book.Name</p>
+                        </a>
                     </span>
                 }
             </div>

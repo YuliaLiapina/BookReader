@@ -24,8 +24,9 @@
                         @Html.HiddenFor(model => model.Book.Id)
                     </div>
                 </div>
+                <br />
 
-                <div class="form-group">
+                <div class="form-group" id="name-edit">
                     @Html.LabelFor(model => model.Book.Name, "Название", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.Book.Name, new { htmlAttributes = new { @class = "form-control" } })
@@ -58,7 +59,7 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Book.Genres, "Добавить авторов", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Book.Authors, "Добавить авторов", htmlAttributes: new { @class = "control-label col-md-2" })
                     @Html.ListBoxFor(x => x.AuthorsIds, Model.Authors)
                 </div>
 
